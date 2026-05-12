@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BARIK ARTS — אומנות בעבודת יד</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Heebo:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Raleway:wght@100;200&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:    #191208;
+      --dark2:   #221B0F;
+      --dark3:   #2E2214;
+      --gold:    #C9A84C;
+      --gold-l:  #D4B96A;
+      --gold-d:  #A8893A;
+      --white:   #F5F1EA;
+      --dim:     #C8C4BC;
+      --border:  rgba(201,168,76,0.25);
+      --radius:  4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    html { overflow-x: clip; }
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Heebo', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: clip;
+      max-width: 100vw;
+    }
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY
+    ═══════════════════════════════════════════ */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+    html[lang="he"] h1,
+    html[lang="he"] h2,
+    html[lang="he"] h3 {
+      font-family: 'Heebo', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .gold { color: var(--gold); }
+    .dim  { color: var(--dim); }
+
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: transparent;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(25,18,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.2em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--dim);
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .nav-ig {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    .nav-ig:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 1.2rem;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-l); }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/natural_elevation.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.45);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .hero:hover .hero-bg { transform: scale(1.0); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(25,18,8,0.2) 0%,
+        rgba(25,18,8,0.1) 40%,
+        rgba(25,18,8,0.7) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      padding: 0 2rem;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    html[lang="he"] .hero-title {
+      font-family: 'Heebo', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      letter-spacing: 0;
+    }
+    .hero-sub {
+      color: var(--dim);
+      margin-bottom: 2.5rem;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 100;
+      font-size: 0.92rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    html[lang="he"] .hero-sub {
+      font-family: 'Heebo', sans-serif;
+      font-style: normal;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      transition: all 0.3s;
+    }
+    .hero-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--gold), transparent);
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════ */
+    section { padding: 6rem 2.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .section-header p {
+      color: var(--dim);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .gold-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.2rem auto;
+    }
+
+    /* ═══════════════════════════════════════════
+       PRODUCTS
+    ═══════════════════════════════════════════ */
+    #products { background: var(--dark2); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--dark3);
+      cursor: pointer;
+    }
+    .product-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: brightness(0.85);
+    }
+    .product-card:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.65);
+    }
+    .product-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(25,18,8,0.95) 0%, rgba(25,18,8,0.2) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.8rem;
+    }
+    .product-price {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .product-name-he {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .product-name-en {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 100;
+      color: var(--dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: var(--dim);
+      margin-top: 0.6rem;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s, transform 0.35s;
+    }
+    .product-card:hover .product-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .product-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-d);
+      padding-bottom: 2px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.35s 0.05s, transform 0.35s 0.05s;
+    }
+    .product-card:hover .product-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* placeholder for missing images */
+    .product-card.placeholder {
+      background: var(--dark3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card.placeholder .placeholder-label {
+      color: var(--border);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════ */
+    #about {
+      background: var(--dark);
+    }
+    .about-artist-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--border);
+      margin: 4rem auto 0;
+    }
+    #about > .container:last-of-type {
+      padding-top: 4rem;
+      padding-bottom: 5rem;
+    }
+    .artist-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    html[dir="rtl"] .artist-inner { direction: rtl; }
+    .artist-img-wrap {
+      position: relative;
+    }
+    .artist-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: rgba(201,168,76,0.06);
+      border: 1px dashed rgba(201,168,76,0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .artist-img-placeholder svg { width: 80px; height: 80px; opacity: 0.4; }
+    .artist-img-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+    }
+    .artist-text { display: flex; flex-direction: column; gap: 1rem; }
+    .artist-text h2 { font-size: 2.2rem; }
+    .artist-text p { font-size: 0.95rem; color: var(--dim); line-height: 1.8; }
+    @media (max-width: 768px) {
+      .artist-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .artist-img-placeholder, .artist-img-wrap img { aspect-ratio: 1/1; max-width: 240px; margin: 0 auto; }
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img {
+      position: relative;
+    }
+    .about-img img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+    .about-img::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      right: -1rem;
+      width: 60%;
+      height: 60%;
+      border-top: 1px solid var(--gold);
+      border-right: 1px solid var(--gold);
+      z-index: -1;
+    }
+    html[dir="rtl"] .about-img::before {
+      right: auto;
+      left: -1rem;
+      border-right: none;
+      border-left: 1px solid var(--gold);
+    }
+    .about-text h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+    .about-text p {
+      color: var(--dim);
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .about-text strong { color: var(--white); font-weight: 600; }
+    .about-divider {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+    .about-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════════
+       PROCESS
+    ═══════════════════════════════════════════ */
+    #process {
+      background: var(--dark2);
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 1.5rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: var(--border);
+    }
+    .step {
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .step-num {
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      background: var(--dark2);
+      position: relative;
+      z-index: 1;
+    }
+    .step h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    .step p {
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTACT / LEAD FORM
+    ═══════════════════════════════════════════ */
+    #contact {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('images/wooden_glow.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+    }
+    .contact-inner {
+      position: relative;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 0.75rem;
+    }
+    .contact-inner .lead {
+      color: var(--dim);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: start;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: rgba(34,27,15,0.8);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: rgba(200,196,188,0.4);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+      background: var(--gold);
+      border: none;
+      color: var(--dark);
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--gold-l); }
+    .form-note {
+      font-size: 0.92rem;
+      color: var(--dim);
+      margin-top: 1rem;
+      opacity: 0.85;
+    }
+    .wa-alt {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--dim);
+      font-size: 0.85rem;
+    }
+    .wa-alt a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .wa-alt a:hover { text-decoration: underline; }
+
+    /* success message */
+    .form-success {
+      display: none;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+    }
+    .form-success .checkmark {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2.5rem;
+    }
+    @media (max-width: 768px) {
+      footer { padding: 2rem 1.2rem; }
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.2em;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .footer-links a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(200,196,188,0.4);
+      width: 100%;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* SVG Icons inline */
+    .icon-ig, .icon-wa, .icon-mail { width: 18px; height: 18px; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      section { padding: 4rem 1.2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img::before { display: none; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; text-align: start; }
+      html[dir="rtl"] .footer-inner { align-items: flex-end; text-align: right; }
+      .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+      .product-card { aspect-ratio: 2/3; }
+      .about-stats { gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; gap: 2px; }
+      .product-card { aspect-ratio: 4/5; min-height: 72vw; }
+      .process-steps { grid-template-columns: 1fr; }
+      .nav-right .nav-ig { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════
+       ACCESSIBILITY WIDGET
+    ═══════════════════════════════════════════ */
+    #a11y-btn {
+      position: fixed;
+      bottom: 1.8rem;
+      left: 1.8rem;
+      z-index: 9000;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: background 0.2s, transform 0.2s;
+    }
+    html[dir="rtl"] #a11y-btn { left: auto; right: 1.8rem; }
+    #a11y-btn:hover { background: var(--gold-l); transform: scale(1.08); }
+    #a11y-btn svg { width: 26px; height: 26px; fill: var(--dark); }
+
+    #a11y-panel {
+      position: fixed;
+      bottom: 5rem;
+      left: 1.8rem;
+      z-index: 8999;
+      background: #1a1206;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      width: 230px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    html[dir="rtl"] #a11y-panel { left: auto; right: 1.8rem; }
+    #a11y-panel.open { display: flex; }
+    #a11y-panel h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 0.4rem;
+      font-family: 'Heebo', sans-serif;
+    }
+    .a11y-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .a11y-label {
+      font-size: 0.78rem;
+      color: var(--dim);
+      font-family: 'Heebo', sans-serif;
+    }
+    .a11y-toggle {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .a11y-toggle input { opacity: 0; width: 0; height: 0; }
+    .a11y-toggle span {
+      position: absolute;
+      inset: 0;
+      background: #333;
+      border-radius: 22px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .a11y-toggle span::after {
+      content: '';
+      position: absolute;
+      width: 16px; height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: transform 0.2s;
+    }
+    .a11y-toggle input:checked + span { background: var(--gold); }
+    .a11y-toggle input:checked + span::after { transform: translateX(18px); }
+    .a11y-size-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .a11y-size-btn {
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      border-radius: 4px;
+      width: 28px; height: 28px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+      font-family: 'Heebo', sans-serif;
+    }
+    .a11y-size-btn:hover { background: rgba(201,168,76,0.3); }
+    #a11y-size-val {
+      font-size: 0.78rem;
+      color: var(--dim);
+      min-width: 30px;
+      text-align: center;
+      font-family: 'Heebo', sans-serif;
+    }
+    #a11y-statement-link {
+      font-size: 0.72rem;
+      color: var(--gold-d);
+      text-align: center;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      font-family: 'Heebo', sans-serif;
+      margin-top: 0.3rem;
+    }
+    #a11y-statement-link:hover { color: var(--gold); }
+    #a11y-reset {
+      font-size: 0.72rem;
+      color: var(--dim);
+      text-align: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Heebo', sans-serif;
+      padding: 0.3rem 0 0;
+    }
+    #a11y-reset:hover { color: var(--white); }
+
+    /* Accessibility modes applied to <body> */
+    body.a11y-contrast {
+      filter: contrast(1.6) brightness(1.1);
+    }
+    body.a11y-grayscale { filter: grayscale(1); }
+    body.a11y-links a { text-decoration: underline !important; }
+    body.a11y-pause * { animation-play-state: paused !important; transition: none !important; }
+    body.a11y-dyslexia, body.a11y-dyslexia p, body.a11y-dyslexia li, body.a11y-dyslexia span {
+      font-family: Arial, sans-serif !important;
+      letter-spacing: 0.05em !important;
+      word-spacing: 0.15em !important;
+      line-height: 1.9 !important;
+    }
+
+    /* Accessibility statement modal */
+    #a11y-statement-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10,7,2,0.88);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #a11y-statement-modal.open { display: flex; }
+    #a11y-statement-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      max-width: 620px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      direction: rtl;
+      text-align: right;
+    }
+    #a11y-statement-box h2 {
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-family: 'Heebo', sans-serif;
+    }
+    #a11y-statement-box h3 {
+      font-size: 0.9rem;
+      color: var(--white);
+      margin: 1rem 0 0.4rem;
+      font-family: 'Heebo', sans-serif;
+    }
+    #a11y-statement-box p, #a11y-statement-box li {
+      font-size: 0.85rem;
+      color: var(--dim);
+      line-height: 1.7;
+      font-family: 'Heebo', sans-serif;
+    }
+    #a11y-statement-box ul { padding-right: 1.2rem; }
+    #a11y-close-stmt {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: var(--dim);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    #a11y-close-stmt:hover { color: var(--white); }
+
+    /* Skip to content */
+    #skip-to-content {
+      position: fixed;
+      top: -100px;
+      right: 1rem;
+      z-index: 99999;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+    #skip-to-content:focus { top: 1rem; }
+
+    /* ═══════════════════════════════════════════
+       FOCUS & MOTION
+    ═══════════════════════════════════════════ */
+    /* Visible keyboard focus for all interactive elements */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    /* Respect system preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════════ */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,10,4,0.92);
+      z-index: 999;
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      max-width: 860px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    /* carousel wrapper */
+    .lb-carousel {
+      position: relative;
+      background: #000;
+      border-radius: 6px 0 0 6px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: stretch;
+    }
+    html[dir="rtl"] .lb-carousel { border-radius: 0 6px 6px 0; }
+    @media (max-width: 600px) {
+      .lb-carousel { border-radius: 6px 6px 0 0 !important; aspect-ratio: 4 / 5; }
+    }
+    .lightbox-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10,7,2,0.55);
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      line-height: 1;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      z-index: 3;
+      border-radius: 4px;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .lb-arrow:hover { background: rgba(10,7,2,0.85); }
+    .lb-prev { left: 0.5rem; }
+    .lb-next { right: 0.5rem; }
+    html[dir="rtl"] .lb-prev { left: auto; right: 0.5rem; }
+    html[dir="rtl"] .lb-next { right: auto; left: 0.5rem; }
+    .lb-dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.45rem;
+      z-index: 3;
+    }
+    .lb-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lb-dot.active { background: var(--gold); transform: scale(1.25); }
+    .lb-dot:hover { background: rgba(255,255,255,0.7); }
+    .lightbox-info {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .lightbox-price {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+    }
+    .lightbox-name {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .lightbox-name-en {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 100;
+      color: var(--dim);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .lightbox-desc {
+      font-size: 0.92rem;
+      color: var(--dim);
+      line-height: 1.7;
+      margin-top: 0.5rem;
+    }
+    .lightbox-cta {
+      display: inline-block;
+      margin-top: auto;
+      padding: 0.8rem 1.8rem;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      border-radius: var(--radius);
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .lightbox-cta:hover { background: var(--gold-l); }
+    .lightbox-close {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--white);
+      font-size: 1.3rem;
+      cursor: pointer;
+      line-height: 1;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+      z-index: 1001;
+    }
+    .lightbox-close:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    @media (max-width: 600px) {
+      .lightbox-box { grid-template-columns: 1fr; }
+      .lightbox-info { padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Skip to content (accessibility) -->
+  <a id="skip-to-content" href="#main-content">דלג לתוכן הראשי</a>
+
+  <!-- ══════════════════════════════════
+       NAV
+  ══════════════════════════════════ -->
+  <nav id="navbar" aria-label="ניווט ראשי">
+    <a href="#" class="nav-logo">BARIK<span>&nbsp;ARTS</span></a>
+    <div class="nav-right">
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-label="החלף שפה">EN</button>
+      <a href="#about" class="nav-ig" data-he="אודות" data-en="About">אודות</a>
+      <a href="https://www.instagram.com/barik_arts" target="_blank" class="nav-ig">@barik_arts</a>
+      <a href="https://wa.me/972508673920" target="_blank" class="nav-cta" data-he="דברו איתנו" data-en="Get in Touch">דברו איתנו</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-he="עבודת יד · חומרים איכותיים · הזמנה אישית" data-en="Handcrafted · Premium Materials · Custom Orders">עבודת יד · חומרים איכותיים · הזמנה אישית</p>
+      <h1 class="hero-title" data-he="יצירות אומנות — בהתאמה אישית" data-en="Every Piece<br>Made for You">יצירות אומנות — בהתאמה אישית</h1>
+      <p class="hero-sub" data-he="יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון" data-en="Bespoke art pieces — wood, iron, concrete">יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון</p>
+      <a href="#contact" class="hero-btn" data-he="השאירו פרטים" data-en="Leave Your Details">השאירו פרטים</a>
+    </div>
+    <div class="hero-scroll">scroll</div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       PRODUCTS
+  ══════════════════════════════════ -->
+  <main id="main-content">
+  <section id="products">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-he="היצירות שלנו" data-en="Our Pieces">היצירות שלנו</span>
+        <h2 data-he="הפריטים שלנו" data-en="Our Collection">הפריטים שלנו</h2>
+        <div class="gold-line"></div>
+        <p data-he="פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית" data-en="Handcrafted pieces in wood, iron and concrete — each made individually and customised to order">פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- 1 -->
+        <div class="product-card">
+          <img src="images/natural_elevation.jpg" alt="מנורת גזע — עמוד תאורה מגזע עץ טבעי" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€820</span>
+            <div class="product-name-he" data-he="מנורת גזע" data-en="Natural Elevation">מנורת גזע</div>
+            <div class="product-name-en" data-he="Natural Elevation" data-en="Natural Elevation">Natural Elevation</div>
+            <p class="product-desc" data-he="עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש" data-en="Floor lamp from a natural wood trunk — raw, dramatic, one of a kind">עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="product-card">
+          <img src="images/rooted_form.jpg" alt="שולחן גזע — שולחן צד מגזר עץ מלא" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€1,350</span>
+            <div class="product-name-he" data-he="שולחן גזע" data-en="Rooted Form">שולחן גזע</div>
+            <div class="product-name-en" data-he="Rooted Form" data-en="Rooted Form">Rooted Form</div>
+            <p class="product-desc" data-he="שולחן צד מגזר עץ מלא — טבעי, חזק, פסל שחי בסלון שלך" data-en="Side table from solid raw wood — natural, strong, a sculpture for your living room">שולחן צד מגזר עץ מלא — טבעי, חזק, פסל שחי בסלון שלך</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על שולחן גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 3 — new: coil lamp -->
+        <div class="product-card" id="card-coil">
+          <img src="images/coil_lamp.jpg" alt="מנורת קפיץ — גזע עץ עם ספירלת ברזל ונורת אדיסון" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.style.display='none';" />
+          <div class="product-card-overlay">
+            <span class="product-price">€580</span>
+            <div class="product-name-he" data-he="מנורת קפיץ" data-en="Coil Light">מנורת קפיץ</div>
+            <div class="product-name-en" data-he="Coil Light" data-en="Coil Light">Coil Light</div>
+            <p class="product-desc" data-he="מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון" data-en="Table lamp — natural wood stump, iron coil spring, Edison filament bulb">מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת קפיץ" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 4 — מנורת בול -->
+        <div class="product-card">
+          <img src="images/wooden_glow_3.jpg" alt="מנורת בול — גזע מגולף עם תאורה פנימית" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€490</span>
+            <div class="product-name-he" data-he="מנורת בול" data-en="Log Lamp">מנורת בול</div>
+            <div class="product-name-en" data-he="Log Lamp" data-en="Log Lamp">Log Lamp</div>
+            <p class="product-desc" data-he="גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו" data-en="Hand-carved wood log — hollow interior with bulb. Each log unique in shape and texture">גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת בול" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="product-card">
+          <img src="images/industrial_light.jpg" alt="מנורת צינורות — ברזל תעשייתי ועץ גולמי" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€220</span>
+            <div class="product-name-he" data-he="מנורת צינורות" data-en="Industrial Light">מנורת צינורות</div>
+            <div class="product-name-en" data-he="Industrial Light" data-en="Industrial Light">Industrial Light</div>
+            <p class="product-desc" data-he="ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי" data-en="Industrial iron meets raw wood — a perfect contrast turned design object">ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת צינורות" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="product-card">
+          <img src="images/wooden_glow.jpg" alt="מנורת עץ — עץ המדליק אור רך מבפנים" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€390</span>
+            <div class="product-name-he" data-he="מנורת עץ" data-en="Wooden Glow">מנורת עץ</div>
+            <div class="product-name-en" data-he="Wooden Glow" data-en="Wooden Glow">Wooden Glow</div>
+            <p class="product-desc" data-he="תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים" data-en="Light that warms the soul — wood that glows softly from within">תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת עץ" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="product-card">
+          <img src="images/raw_essence.jpg" alt="פסל בטון וברזל — יצירה מברזל, בטון ועץ" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€1,550</span>
+            <div class="product-name-he" data-he="פסל בטון וברזל" data-en="Raw Essence">פסל בטון וברזל</div>
+            <div class="product-name-en" data-he="Raw Essence" data-en="Raw Essence">Raw Essence</div>
+            <p class="product-desc" data-he="פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל" data-en="A large sculpture — iron, concrete and wood. A piece that defines a space">פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על פסל בטון וברזל" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 8 — console table -->
+        <div class="product-card">
+          <img src="images/console_table.jpg" alt="מזנון — עץ ישן ורגלי מוט ברזל עם מדף תחתון" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€1,190</span>
+            <div class="product-name-he" data-he="מזנון" data-en="Mizmun Console">מזנון</div>
+            <div class="product-name-en" data-he="Mizmun Console" data-en="Mizmun Console">Mizmun Console</div>
+            <p class="product-desc" data-he="מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה" data-en="Reclaimed wood console with rebar legs and a lower iron shelf — fits an entryway, living room or bedroom">מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על המזנון" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+      </div><!-- /products-grid -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       ABOUT
+  ══════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-img">
+          <img src="images/rooted_form.jpg" alt="Barik Arts — about" />
+        </div>
+
+        <div class="about-text">
+          <span class="section-tag" data-he="אודות" data-en="About">אודות</span>
+          <h2 data-he="עץ, ברזל, בטון —<br>עיצוב שנוצר ביד." data-en="Wood, iron, concrete —<br>crafted by hand.">עץ, ברזל, בטון —<br>עיצוב שנוצר ביד.</h2>
+          <div class="about-divider"></div>
+          <p data-he="כל פריט נוצר מחומרים טבעיים שעברו טיפול ועיצוב ביד — עץ מלא, ברזל, בטון. כל אחד עם אופי משלו." data-en="Every piece is made from natural materials shaped by hand — solid wood, iron, concrete. Each one with its own character.">
+            כל פריט נוצר מחומרים טבעיים שעברו טיפול ועיצוב ביד — עץ מלא, ברזל, בטון. כל אחד עם אופי משלו.
+          </p>
+          <p data-he="ב-Barik Arts כל פריט מיוצר בהזמנה אישית — מהעיצוב הראשוני ועד המוצר הסופי, הכל נעשה ביד." data-en="At Barik Arts every piece is made to order — from the initial design to the finished product, everything is done by hand.">
+            ב-Barik Arts כל פריט מיוצר בהזמנה אישית — מהעיצוב הראשוני ועד המוצר הסופי, הכל נעשה ביד.
+          </p>
+          <p data-he="גודל, צבע, חומרים — הכל ניתן להתאמה. מגיעים אליך עם הפריט המוכן ומתאימים אותו למקום." data-en="Size, finish, materials — everything can be customised. We deliver to your home and fit the piece to its space.">
+            גודל, צבע, חומרים — הכל ניתן להתאמה. מגיעים אליך עם הפריט המוכן ומתאימים אותו למקום.
+          </p>
+          <div class="about-stats">
+            <div>
+              <span class="stat-num">100%</span>
+              <span class="stat-label" data-he="עבודת יד" data-en="Handmade">עבודת יד</span>
+            </div>
+            <div>
+              <span class="stat-num">1/1</span>
+              <span class="stat-label" data-he="כל פריט ייחודי" data-en="Every piece unique">כל פריט ייחודי</span>
+            </div>
+            <div>
+              <span class="stat-num">∞</span>
+              <span class="stat-label" data-he="אפשרויות התאמה" data-en="Custom options">אפשרויות התאמה</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="about-artist-divider"></div>
+
+    <div class="container">
+      <div class="artist-inner" id="artist">
+        <div class="artist-img-wrap">
+          <div class="artist-img-placeholder" id="artistImgPlaceholder">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="40" cy="28" r="14" stroke="#c9a84c" stroke-width="1.5"/>
+              <path d="M10 72c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="artist-text">
+          <span class="section-tag" data-he="מאחורי היצירה" data-en="Behind the Work">מאחורי היצירה</span>
+          <h2 data-he="האמן" data-en="The Artist">האמן</h2>
+          <div class="gold-line"></div>
+          <p data-he="טקסט אודות האמן יופיע כאן בקרוב." data-en="Artist bio coming soon.">טקסט אודות האמן יופיע כאן בקרוב.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       PROCESS
+  ══════════════════════════════════ -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-he="איך זה עובד" data-en="How It Works">איך זה עובד</span>
+        <h2 data-he="כך זה עובד — ארבעה שלבים" data-en="How It Works — Four Steps">כך זה עובד — ארבעה שלבים</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3 data-he="משאירים פרטים" data-en="Leave Details">משאירים פרטים</h3>
+          <p data-he="ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות" data-en="Fill in name and phone — we call you back within 24 hours">ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3 data-he="שיחת עיצוב" data-en="Design Chat">שיחת עיצוב</h3>
+          <p data-he="מדברים על הפריט, הגודל, המקום בבית, ותקציב" data-en="We talk about the piece, size, location in your home, and budget">מדברים על הפריט, הגודל, המקום בבית, ותקציב</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3 data-he="יוצרים ביד" data-en="Handcrafted">יוצרים ביד</h3>
+          <p data-he="הפריט שלך מיוצר בעבודת יד מחומרים איכותיים שנבחרו במיוחד" data-en="Your piece is handcrafted from specially selected quality materials">הפריט שלך מיוצר בעבודת יד מחומרים איכותיים שנבחרו במיוחד</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3 data-he="מגיע אליך" data-en="Delivered to You">מגיע אליך</h3>
+          <p data-he="הפריט מגיע ישירות לבית שלך — ייחודי, שלך, לתמיד" data-en="Delivered directly to your home — unique, yours, forever">הפריט מגיע ישירות לבית שלך — ייחודי, שלך, לתמיד</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CONTACT FORM
+  ══════════════════════════════════ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <span class="section-tag" data-he="צרו קשר" data-en="Get in Touch">צרו קשר</span>
+        <h2 data-he="ספרו לנו מה אתם רוצים לבנות" data-en="Tell us what you want to build">ספרו לנו מה אתם רוצים לבנות</h2>
+        <div class="gold-line"></div>
+        <p class="lead" data-he="השאירו שם וטלפון — נחזור אליכם תוך יום לשיחה קצרה." data-en="Leave your name and number — we'll get back to you within a day.">
+          השאירו שם וטלפון — נחזור אליכם תוך יום לשיחה קצרה.
+        </p>
+
+        <form id="leadForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname" data-he="שם מלא" data-en="Full Name">שם מלא</label>
+              <input type="text" id="fname" name="name" required
+                data-placeholder-he="השם שלך" data-placeholder-en="Your name"
+                placeholder="השם שלך" />
+            </div>
+            <div class="form-group">
+              <label for="fphone" data-he="טלפון" data-en="Phone">טלפון</label>
+              <input type="tel" id="fphone" name="phone" required
+                data-placeholder-he="מספר הטלפון שלך" data-placeholder-en="Your phone number"
+                placeholder="מספר הטלפון שלך" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fmsg" data-he="מה מעניין אותך? (לא חובה)" data-en="What interests you? (optional)">מה מעניין אותך? (לא חובה)</label>
+            <textarea id="fmsg" name="message" rows="3"
+              data-placeholder-he="מנורה, שולחן, פסל, גודל, חלום..." data-placeholder-en="Lamp, table, sculpture, size, dream..."
+              placeholder="מנורה, שולחן, פסל, גודל, חלום..."></textarea>
+          </div>
+          <button type="submit" class="form-submit" data-he="שלחו פרטים ←" data-en="Send →">שלחו פרטים ←</button>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="checkmark">✦</div>
+          <h3 data-he="קיבלנו!" data-en="Got it!" style="color:var(--gold);margin-bottom:0.5rem">קיבלנו!</h3>
+          <p data-he="נחזור אליך תוך 24 שעות. מחכים לדבר איתך 🙏" data-en="We'll call you within 24 hours. Looking forward to talking with you 🙏">נחזור אליך תוך 24 שעות. מחכים לדבר איתך 🙏</p>
+        </div>
+
+        <div class="wa-alt">
+          <span data-he="או כתבו לנו ישירות:" data-en="Or write to us directly:">או כתבו לנו ישירות:</span>
+          <a href="https://wa.me/972508673920" target="_blank" data-he="WhatsApp ←" data-en="WhatsApp →">WhatsApp ←</a>
+        </div>
+        <p class="form-note" data-he="© Smadi Shbiro — כל הצילומים בעמוד" data-en="© Smadi Shbiro — photography">© Smadi Shbiro — כל הצילומים בעמוד</p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">BARIK<span>&nbsp;ARTS</span></div>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/barik_arts" target="_blank">
+          <svg class="icon-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @barik_arts
+        </a>
+        <a href="https://wa.me/972508673920" target="_blank">
+          <svg class="icon-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          050-8673920
+        </a>
+        <a href="mailto:Shachars888@gmail.com">
+          <svg class="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 4 10 9 10-9"/></svg>
+          Shachars888@gmail.com
+        </a>
+      </div>
+      <p class="footer-copy" data-he="© 2025 Barik Arts. כל הזכויות שמורות." data-en="© 2025 Barik Arts. All rights reserved.">© 2025 Barik Arts. כל הזכויות שמורות.</p>
+    </div>
+  </footer>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-btn" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel" onclick="toggleA11yPanel()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M12 7c-2.8 0-5 1.1-5 2.5V11h3v6l1 3h2l1-3v-6h3V9.5C17 8.1 14.8 7 12 7z"/>
+    </svg>
+  </button>
+
+  <div id="a11y-panel" role="dialog" aria-label="אפשרויות נגישות" aria-modal="false">
+    <h3>♿ נגישות</h3>
+
+    <div class="a11y-row">
+      <span class="a11y-label">ניגודיות גבוהה</span>
+      <label class="a11y-toggle">
+        <input type="checkbox" id="tog-contrast" onchange="a11yToggle('a11y-contrast',this)">
+        <span></span>
+      </label>
+    </div>
+    <div class="a11y-row">
+      <span class="a11y-label">גווני אפור</span>
+      <label class="a11y-toggle">
+        <input type="checkbox" id="tog-gray" onchange="a11yToggle('a11y-grayscale',this)">
+        <span></span>
+      </label>
+    </div>
+    <div class="a11y-row">
+      <span class="a11y-label">הדגשת קישורים</span>
+      <label class="a11y-toggle">
+        <input type="checkbox" id="tog-links" onchange="a11yToggle('a11y-links',this)">
+        <span></span>
+      </label>
+    </div>
+    <div class="a11y-row">
+      <span class="a11y-label">עצור אנימציות</span>
+      <label class="a11y-toggle">
+        <input type="checkbox" id="tog-pause" onchange="a11yToggle('a11y-pause',this)">
+        <span></span>
+      </label>
+    </div>
+    <div class="a11y-row">
+      <span class="a11y-label">גופן קריא</span>
+      <label class="a11y-toggle">
+        <input type="checkbox" id="tog-dyslexia" onchange="a11yToggle('a11y-dyslexia',this)">
+        <span></span>
+      </label>
+    </div>
+
+    <div class="a11y-size-row" style="margin-top:0.4rem;">
+      <span class="a11y-label">גודל טקסט</span>
+      <div style="display:flex;align-items:center;gap:0.4rem;">
+        <button class="a11y-size-btn" onclick="a11yFontSize(-1)" aria-label="הקטן גופן">−</button>
+        <span id="a11y-size-val">100%</span>
+        <button class="a11y-size-btn" onclick="a11yFontSize(1)" aria-label="הגדל גופן">+</button>
+      </div>
+    </div>
+
+    <button id="a11y-reset" onclick="a11yReset()">↺ איפוס הכל</button>
+    <button id="a11y-statement-link" onclick="openA11yStatement()">הצהרת נגישות</button>
+  </div>
+
+  <!-- ACCESSIBILITY STATEMENT MODAL -->
+  <div id="a11y-statement-modal" role="dialog" aria-modal="true" aria-label="הצהרת נגישות" onclick="if(event.target===this)closeA11yStatement()">
+    <div id="a11y-statement-box">
+      <button id="a11y-close-stmt" onclick="closeA11yStatement()" aria-label="סגור">✕</button>
+      <h2>הצהרת נגישות</h2>
+
+      <h3>מי אנחנו</h3>
+      <p>Barik Arts — אומנות עץ וברזל בהתאמה אישית. האתר: <strong>barik-arts.netlify.app</strong></p>
+
+      <h3>מחויבות לנגישות</h3>
+      <p>אנו פועלים להנגשת האתר לאנשים עם מוגבלויות בהתאם לתקן הישראלי 5568 (WCAG 2.1 רמה AA) ובהתאם לחוק שוויון זכויות לאנשים עם מוגבלות.</p>
+
+      <h3>אמצעי הנגישות באתר</h3>
+      <ul>
+        <li>ניגודיות גבוהה לנוחות קריאה</li>
+        <li>שינוי גודל הטקסט</li>
+        <li>עצירת אנימציות</li>
+        <li>הדגשת קישורים</li>
+        <li>גופן קריא לבעלי דיסלקציה</li>
+        <li>גישה מקלדת מלאה וקפיצה לתוכן ראשי</li>
+        <li>תגיות alt לכל התמונות</li>
+        <li>מבנה כותרות תקין</li>
+      </ul>
+
+      <h3>מגבלות ידועות</h3>
+      <p>ייתכן שחלק מהתמונות ותכני המדיה אינם נגישים במלואם. אנו ממשיכים לשפר את הנגישות באופן שוטף.</p>
+
+      <h3>יצירת קשר בנושא נגישות</h3>
+      <p>נתקלתם בבעיית נגישות? נשמח לעזור:<br>
+      📧 <a href="mailto:Shachars888@gmail.com" style="color:var(--gold)">Shachars888@gmail.com</a><br>
+      📱 <a href="https://wa.me/972508673920" target="_blank" style="color:var(--gold)">050-8673920</a></p>
+
+      <h3>תאריך עדכון אחרון</h3>
+      <p>מאי 2025</p>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <div class="lightbox-box">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <!-- Carousel -->
+      <div class="lb-carousel" id="lbCarousel">
+        <img class="lightbox-img" id="lbImg" src="" alt="" />
+        <button class="lb-arrow lb-prev" id="lbPrev" onclick="lbNav(-1)" aria-label="תמונה קודמת">&#8249;</button>
+        <button class="lb-arrow lb-next" id="lbNext" onclick="lbNav(1)" aria-label="תמונה הבאה">&#8250;</button>
+        <div class="lb-dots" id="lbDots"></div>
+      </div>
+      <div class="lightbox-info">
+        <span class="lightbox-price" id="lbPrice"></span>
+        <div class="lightbox-name" id="lbName"></div>
+        <div class="lightbox-name-en" id="lbNameEn"></div>
+        <p class="lightbox-desc" id="lbDesc"></p>
+        <a href="https://wa.me/972508673920" target="_blank" class="lightbox-cta"
+           id="lbCta" data-he="דברו איתנו על הפריט הזה ←" data-en="Ask about this piece →">דברו איתנו על הפריט הזה ←</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════ -->
+  <script>
+    // ── Sticky nav ──────────────────────────────
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Lightbox + Carousel ──────────────────────
+    // Gallery data: main image src → array of all images for that product
+    const LB_GALLERIES = {
+      'images/natural_elevation.jpg':  ['images/natural_elevation.jpg', 'images/wooden_glow_2.jpg'],
+      'images/rooted_form.jpg':        ['images/rooted_form.jpg', 'images/rooted_form_2.jpg'],
+      'images/coil_lamp.jpg':          ['images/coil_lamp.jpg', 'images/coil_lamp_2.jpg', 'images/coil_lamp_3.jpg'],
+      'images/wooden_glow_3.jpg':       ['images/wooden_glow_3.jpg', 'images/driftwood_lamp_2.jpg'],
+      'images/industrial_light.jpg':   ['images/industrial_light.jpg', 'images/industrial_light_2.jpg'],
+      'images/wooden_glow.jpg':        ['images/wooden_glow.jpg', 'images/driftwood_lamp.jpg', 'images/console_table_2.jpg'],
+      'images/raw_essence.jpg':        ['images/raw_essence.jpg', 'images/raw_essence_2.jpg'],
+      'images/console_table.jpg':      ['images/console_table.jpg', 'images/console_table_4.jpg'],
+    };
+
+    let lbGallery = [];
+    let lbIndex = 0;
+
+    function openLightbox(card) {
+      const img = card.querySelector('img');
+      const price = card.querySelector('.product-price');
+      const nameHe = card.querySelector('.product-name-he');
+      const nameEn = card.querySelector('.product-name-en');
+      const desc = card.querySelector('.product-desc');
+
+      // Resolve gallery from relative src
+      const rawSrc = img ? img.getAttribute('src') : '';
+      lbGallery = LB_GALLERIES[rawSrc] || [rawSrc];
+      lbIndex = 0;
+
+      document.getElementById('lbPrice').textContent = price ? price.textContent : '';
+      document.getElementById('lbName').textContent = nameHe ? nameHe.textContent : '';
+      document.getElementById('lbNameEn').textContent = nameEn ? nameEn.textContent : '';
+      document.getElementById('lbDesc').textContent = desc ? desc.textContent : '';
+
+      lbRender();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function lbRender() {
+      const imgEl = document.getElementById('lbImg');
+      const dotsEl = document.getElementById('lbDots');
+      const prevBtn = document.getElementById('lbPrev');
+      const nextBtn = document.getElementById('lbNext');
+      const multi = lbGallery.length > 1;
+
+      // Fade transition
+      imgEl.style.opacity = '0';
+      imgEl.src = lbGallery[lbIndex];
+      imgEl.onload = () => { imgEl.style.opacity = '1'; };
+
+      // Show/hide arrows
+      prevBtn.style.display = multi ? '' : 'none';
+      nextBtn.style.display = multi ? '' : 'none';
+
+      // Render dots
+      dotsEl.innerHTML = '';
+      if (multi) {
+        lbGallery.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'lb-dot' + (i === lbIndex ? ' active' : '');
+          d.setAttribute('aria-label', 'תמונה ' + (i + 1));
+          d.addEventListener('click', () => { lbIndex = i; lbRender(); });
+          dotsEl.appendChild(d);
+        });
+      }
+    }
+
+    function lbNav(dir) {
+      if (!lbGallery.length) return;
+      lbIndex = (lbIndex + dir + lbGallery.length) % lbGallery.length;
+      lbRender();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Keyboard: Escape, ArrowLeft/Right
+    document.addEventListener('keydown', e => {
+      const open = document.getElementById('lightbox').classList.contains('open');
+      if (e.key === 'Escape') { closeLightbox(); closeA11yStatement(); }
+      if (open && e.key === 'ArrowRight') lbNav(1);
+      if (open && e.key === 'ArrowLeft') lbNav(-1);
+    });
+
+    // Touch swipe on carousel image
+    (function() {
+      let tx = 0;
+      const el = document.getElementById('lbCarousel');
+      el.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      el.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 45) lbNav(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    })();
+
+    // Attach click to all product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => openLightbox(card));
+    });
+
+    // ── Language toggle ─────────────────────────
+    let currentLang = 'he';
+    function toggleLang() {
+      currentLang = currentLang === 'he' ? 'en' : 'he';
+      const html = document.documentElement;
+      html.lang = currentLang;
+      html.dir = currentLang === 'he' ? 'rtl' : 'ltr';
+      document.getElementById('langBtn').textContent = currentLang === 'he' ? 'EN' : 'עב';
+
+      document.querySelectorAll('[data-he]').forEach(el => {
+        const txt = el.dataset[currentLang];
+        if (!txt) return;
+        // handle innerHTML (for <strong> etc)
+        if (txt.includes('<')) el.innerHTML = txt;
+        else el.textContent = txt;
+      });
+      document.querySelectorAll('[data-placeholder-he]').forEach(el => {
+        el.placeholder = el.dataset[`placeholder${currentLang === 'he' ? 'He' : 'En'}`];
+      });
+    }
+
+    // ── Lead form → WhatsApp ────────────────────
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name  = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('fphone').value.trim();
+      const msg   = document.getElementById('fmsg').value.trim();
+
+      const waMsg = currentLang === 'he'
+        ? `שלום! שמי ${name}, מספרי ${phone}.${msg ? '\n' + msg : ''}\nאשמח שתחזרו אלי 🙏`
+        : `Hello! My name is ${name}, my phone is ${phone}.${msg ? '\n' + msg : ''}\nPlease call me back 🙏`;
+
+      // Show success
+      document.getElementById('leadForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+
+      // Open WhatsApp after short delay
+      setTimeout(() => {
+        window.open('https://wa.me/972508673920?text=' + encodeURIComponent(waMsg), '_blank');
+      }, 800);
+    }
+
+    // ── Accessibility Widget ─────────────────────
+    let a11yFontLevel = 0;
+
+    function toggleA11yPanel() {
+      const panel = document.getElementById('a11y-panel');
+      const btn   = document.getElementById('a11y-btn');
+      const isOpen = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      if (isOpen) {
+        // Move focus into panel for keyboard users
+        const first = panel.querySelector('input, button');
+        if (first) first.focus();
+      }
+    }
+    document.addEventListener('click', function(e) {
+      const panel = document.getElementById('a11y-panel');
+      const btn = document.getElementById('a11y-btn');
+      if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) {
+        panel.classList.remove('open');
+      }
+    });
+    function a11yToggle(cls, cb) {
+      document.body.classList.toggle(cls, cb.checked);
+      localStorage.setItem(cls, cb.checked ? '1' : '0');
+    }
+    function a11yFontSize(dir) {
+      a11yFontLevel = Math.max(-3, Math.min(5, a11yFontLevel + dir));
+      const pct = 100 + a11yFontLevel * 10;
+      document.documentElement.style.fontSize = pct + '%';
+      document.getElementById('a11y-size-val').textContent = pct + '%';
+      localStorage.setItem('a11y-font', a11yFontLevel);
+    }
+    function a11yReset() {
+      ['a11y-contrast','a11y-grayscale','a11y-links','a11y-pause','a11y-dyslexia'].forEach(cls => {
+        document.body.classList.remove(cls);
+        localStorage.removeItem(cls);
+        const id = 'tog-' + cls.replace('a11y-','');
+        const el = document.getElementById(id);
+        if (el) el.checked = false;
+      });
+      a11yFontLevel = 0;
+      document.documentElement.style.fontSize = '';
+      document.getElementById('a11y-size-val').textContent = '100%';
+      localStorage.removeItem('a11y-font');
+    }
+    function openA11yStatement() {
+      document.getElementById('a11y-statement-modal').classList.add('open');
+      document.getElementById('a11y-panel').classList.remove('open');
+    }
+    function closeA11yStatement() {
+      document.getElementById('a11y-statement-modal').classList.remove('open');
+    }
+    // Restore saved preferences on load
+    window.addEventListener('DOMContentLoaded', () => {
+      ['a11y-contrast','a11y-grayscale','a11y-links','a11y-pause','a11y-dyslexia'].forEach(cls => {
+        if (localStorage.getItem(cls) === '1') {
+          document.body.classList.add(cls);
+          const id = 'tog-' + cls.replace('a11y-','');
+          const el = document.getElementById(id);
+          if (el) el.checked = true;
+        }
+      });
+      const savedFont = parseInt(localStorage.getItem('a11y-font') || '0');
+      if (savedFont !== 0) {
+        a11yFontLevel = savedFont;
+        document.documentElement.style.fontSize = (100 + savedFont * 10) + '%';
+        document.getElementById('a11y-size-val').textContent = (100 + savedFont * 10) + '%';
+      }
+    });
+
+    // ── Fade-in on scroll ────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.step, .about-text p, .section-header').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
