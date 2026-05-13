@@ -110,26 +110,115 @@
     }
     .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-    .nav-ig {
-      color: var(--dim);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
+    /* ── Hamburger ── */
+    .hamburger-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      padding: 0.4rem;
+      position: relative;
+      z-index: 200;
     }
-    .nav-ig:hover { color: var(--gold); }
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    .nav-cta {
-      background: var(--gold);
-      color: var(--dark);
+    /* ── Overlay Menu ── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(19,13,4,0.97);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+    .nav-overlay-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+      text-align: center;
+    }
+    .nav-overlay a,
+    .nav-overlay button.nav-overlay-link {
+      font-family: 'Heebo', sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
       text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.45rem 1.2rem;
-      border-radius: 2px;
+      padding: 0.55rem 2rem;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s, letter-spacing 0.2s;
+      display: block;
+    }
+    .nav-overlay a:hover,
+    .nav-overlay button.nav-overlay-link:hover { color: var(--gold); letter-spacing: 0.07em; }
+    .overlay-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 0.8rem auto;
+    }
+    .overlay-ig {
+      font-size: 0.85rem !important;
+      letter-spacing: 0.12em !important;
+      color: var(--dim) !important;
+    }
+    .overlay-cta {
+      margin-top: 0.5rem;
+      padding: 0.8rem 3rem !important;
+      background: var(--gold) !important;
+      color: var(--dark) !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+      letter-spacing: 0.08em !important;
+      border-radius: var(--radius) !important;
+    }
+    .overlay-cta:hover { background: var(--gold-l) !important; letter-spacing: 0.08em !important; }
+
+    /* ── Lightbox close on image ── */
+    .lb-close-img {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
       transition: background 0.2s;
     }
-    .nav-cta:hover { background: var(--gold-l); }
+    .lb-close-img:hover { background: var(--gold); color: var(--dark); }
+    html[dir="rtl"] .lb-close-img { right: auto; left: 0.75rem; }
 
     /* ═══════════════════════════════════════════
        HERO
@@ -747,7 +836,7 @@
       .products-grid { grid-template-columns: 1fr; gap: 2px; }
       .product-card { aspect-ratio: 4/5; min-height: 72vw; }
       .process-steps { grid-template-columns: 1fr; }
-      .nav-right .nav-ig { display: none; }
+      /* hamburger always visible on mobile */
     }
 
     /* ═══════════════════════════════════════════
@@ -1130,29 +1219,7 @@
       transition: background 0.2s;
     }
     .lightbox-cta:hover { background: var(--gold-l); }
-    .lightbox-close {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.5rem;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.35);
-      color: var(--white);
-      font-size: 1.3rem;
-      cursor: pointer;
-      line-height: 1;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background 0.2s, color 0.2s;
-      z-index: 1001;
-    }
-    .lightbox-close:hover {
-      background: var(--gold);
-      color: var(--dark);
-    }
+    .lightbox-close { display: none; }
     @media (max-width: 600px) {
       .lightbox-box { grid-template-columns: 1fr; }
       .lightbox-info { padding: 1.5rem; }
@@ -1172,11 +1239,25 @@
     <a href="#" class="nav-logo">BARIK<span>&nbsp;ARTS</span></a>
     <div class="nav-right">
       <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-label="החלף שפה">EN</button>
-      <a href="#about" class="nav-ig" data-he="אודות" data-en="About">אודות</a>
-      <a href="https://www.instagram.com/barik_arts" target="_blank" class="nav-ig">@barik_arts</a>
-      <a href="https://wa.me/972508673920" target="_blank" class="nav-cta" data-he="דברו איתנו" data-en="Get in Touch">דברו איתנו</a>
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="תפריט" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <!-- Overlay menu -->
+  <div class="nav-overlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="תפריט ניווט">
+    <div class="nav-overlay-inner">
+      <a href="#products" onclick="closeMenu()" data-he="קולקציה" data-en="Collection">קולקציה</a>
+      <a href="#about" onclick="closeMenu()" data-he="אודות" data-en="About">אודות</a>
+      <a href="#artist" onclick="closeMenu()" data-he="האמן" data-en="The Artist">האמן</a>
+      <button class="nav-overlay-link" onclick="closeMenu(); setTimeout(()=>document.getElementById('a11y-btn').click(),200);" data-he="נגישות" data-en="Accessibility">נגישות</button>
+      <a href="#contact" onclick="closeMenu()" data-he="צור קשר" data-en="Contact">צור קשר</a>
+      <div class="overlay-divider"></div>
+      <a href="https://www.instagram.com/barik_arts" target="_blank" class="overlay-ig">@barik_arts</a>
+      <a href="https://wa.me/972508673920" target="_blank" onclick="closeMenu()" class="overlay-cta" data-he="דברו איתנו" data-en="Get in Touch">דברו איתנו</a>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════
        HERO
@@ -1217,18 +1298,6 @@
             <div class="product-name-en" data-he="Natural Elevation" data-en="Natural Elevation">Natural Elevation</div>
             <p class="product-desc" data-he="עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש" data-en="Floor lamp from a natural wood trunk — raw, dramatic, one of a kind">עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש</p>
             <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="product-card">
-          <img src="images/rooted_form.jpg" alt="שולחן גזע — שולחן צד מגזר עץ מלא" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€1,350</span>
-            <div class="product-name-he" data-he="שולחן גזע" data-en="Rooted Form">שולחן גזע</div>
-            <div class="product-name-en" data-he="Rooted Form" data-en="Rooted Form">Rooted Form</div>
-            <p class="product-desc" data-he="שולחן צד מגזר עץ מלא — טבעי, חזק, פסל שחי בסלון שלך" data-en="Side table from solid raw wood — natural, strong, a sculpture for your living room">שולחן צד מגזר עץ מלא — טבעי, חזק, פסל שחי בסלון שלך</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על שולחן גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
           </div>
         </div>
 
@@ -1588,6 +1657,7 @@
       <!-- Carousel -->
       <div class="lb-carousel" id="lbCarousel">
         <img class="lightbox-img" id="lbImg" src="" alt="" />
+        <button class="lb-close-img" onclick="closeLightbox()" aria-label="סגור תמונה">✕</button>
         <button class="lb-arrow lb-prev" id="lbPrev" onclick="lbNav(-1)" aria-label="תמונה קודמת">&#8249;</button>
         <button class="lb-arrow lb-next" id="lbNext" onclick="lbNav(1)" aria-label="תמונה הבאה">&#8250;</button>
         <div class="lb-dots" id="lbDots"></div>
@@ -1616,7 +1686,6 @@
     // Gallery data: main image src → array of all images for that product
     const LB_GALLERIES = {
       'images/natural_elevation.jpg':  ['images/natural_elevation.jpg', 'images/wooden_glow_2.jpg'],
-      'images/rooted_form.jpg':        ['images/rooted_form.jpg', 'images/rooted_form_2.jpg'],
       'images/coil_lamp.jpg':          ['images/coil_lamp.jpg', 'images/coil_lamp_2.jpg', 'images/coil_lamp_3.jpg'],
       'images/wooden_glow_3.jpg':       ['images/wooden_glow_3.jpg', 'images/driftwood_lamp_2.jpg'],
       'images/industrial_light.jpg':   ['images/industrial_light.jpg', 'images/industrial_light_2.jpg'],
@@ -1690,10 +1759,28 @@
       document.body.style.overflow = '';
     }
 
+    // ── Hamburger menu ─────────────────────────
+    function toggleMenu() {
+      const overlay = document.getElementById('navOverlay');
+      const btn = document.getElementById('hamburgerBtn');
+      const isOpen = overlay.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      const overlay = document.getElementById('navOverlay');
+      const btn = document.getElementById('hamburgerBtn');
+      overlay.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
     // Keyboard: Escape, ArrowLeft/Right
     document.addEventListener('keydown', e => {
       const open = document.getElementById('lightbox').classList.contains('open');
-      if (e.key === 'Escape') { closeLightbox(); closeA11yStatement(); }
+      if (e.key === 'Escape') { closeLightbox(); closeA11yStatement(); closeMenu(); }
       if (open && e.key === 'ArrowRight') lbNav(1);
       if (open && e.key === 'ArrowLeft') lbNav(-1);
     });
