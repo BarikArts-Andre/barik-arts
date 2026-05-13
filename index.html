@@ -509,7 +509,7 @@
     .artist-photos img:hover { transform: scale(1.02); }
     .artist-photos .artist-photo-main {
       grid-column: 1 / -1;
-      aspect-ratio: 4/3;
+      aspect-ratio: 3/4;
       object-position: center top;
     }
     .artist-photos .artist-photo-sub {
@@ -1163,17 +1163,17 @@
     .lb-arrow:hover { background: rgba(10,7,2,0.85); }
     .lb-prev { left: 0.5rem; }
     .lb-next { right: 0.5rem; }
-    html[dir="rtl"] .lb-prev { left: auto; right: 0.5rem; }
-    html[dir="rtl"] .lb-next { right: auto; left: 0.5rem; }
+    html[dir="rtl"] .lb-prev { left: 0.5rem; right: auto; }
+    html[dir="rtl"] .lb-next { right: auto; left: auto; right: 0.5rem; }
     .lb-dots {
       position: absolute;
       bottom: 0.75rem;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0.75rem;
       display: flex;
       gap: 0.45rem;
       z-index: 3;
     }
+    html[dir="rtl"] .lb-dots { left: auto; right: 0.75rem; }
     .lb-dot {
       width: 8px;
       height: 8px;
@@ -1374,7 +1374,19 @@
           </div>
         </div>
 
-        <!-- 8 — console table -->
+        <!-- 8 — live edge table -->
+        <div class="product-card">
+          <img src="images/live_table.jpg" alt="שולחן גזע — עץ חי עם רגלי ברזל" loading="lazy" />
+          <div class="product-card-overlay">
+            <span class="product-price">€1,450</span>
+            <div class="product-name-he" data-he="שולחן גזע" data-en="Live Edge Table">שולחן גזע</div>
+            <div class="product-name-en" data-he="Live Edge Table" data-en="Live Edge Table">Live Edge Table</div>
+            <p class="product-desc" data-he="שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי" data-en="Table from a natural live-edge slab with iron legs — every piece one of a kind">שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי</p>
+            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על שולחן גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+          </div>
+        </div>
+
+        <!-- 9 — console table -->
         <div class="product-card">
           <img src="images/console_table.jpg" alt="מזנון — עץ ישן ורגלי מוט ברזל עם מדף תחתון" loading="lazy" />
           <div class="product-card-overlay">
@@ -1445,14 +1457,11 @@
           <span class="section-tag" data-he="מאחורי היצירה" data-en="Behind the Work">מאחורי היצירה</span>
           <h2 data-he="אנדריי" data-en="Andrei">אנדריי</h2>
           <div class="gold-line"></div>
-          <p data-he="אנדריי עובד עם עץ כל חייו. מגיל צעיר הוא לומד את השפה של החומר — את הגרגר, את הצבע, את המשקל. הוא יודע לקרוא עץ כמו שאחרים קוראים ספר." data-en="Andrei has worked with wood his entire life. From a young age he learned the language of the material — the grain, the colour, the weight. He reads wood the way others read a book.">
-            אנדריי עובד עם עץ כל חייו. מגיל צעיר הוא לומד את השפה של החומר — את הגרגר, את הצבע, את המשקל. הוא יודע לקרוא עץ כמו שאחרים קוראים ספר.
+          <p data-he="אנדריי עוסק בעבודת עץ כל חייו. הוא מייצר פריטי אומנות ועיצוב בעבודת יד — מנורות, פסלים, ריהוט — מעץ, ברזל ובטון." data-en="Andrei has worked with wood his entire life. He creates handcrafted art and design objects — lamps, sculptures, furniture — in wood, iron and concrete.">
+            אנדריי עוסק בעבודת עץ כל חייו. הוא מייצר פריטי אומנות ועיצוב בעבודת יד — מנורות, פסלים, ריהוט — מעץ, ברזל ובטון.
           </p>
-          <p data-he="הוא בונה ומגלף פריטי אומנות ועיצוב מחומרים טבעיים — עץ, ברזל, בטון. כל פריט מיוצר ביד, מהתכנון הראשוני ועד הגימור האחרון, עם תשומת לב אין-סופית לפרטים." data-en="He builds and carves art and design pieces from natural materials — wood, iron, concrete. Every piece is made by hand, from the first sketch to the final finish, with infinite attention to detail.">
-            הוא בונה ומגלף פריטי אומנות ועיצוב מחומרים טבעיים — עץ, ברזל, בטון. כל פריט מיוצר ביד, מהתכנון הראשוני ועד הגימור האחרון, עם תשומת לב אין-סופית לפרטים.
-          </p>
-          <p data-he="אנדריי עובד עם כל סוגי העץ ומשתמש אך ורק בחומרים האיכותיים ביותר. הרמה שלו היא לא רק מקצועית — היא אמנותית." data-en="Andrei works with every species of wood and uses only the finest materials. His standard isn't just professional — it's artistic.">
-            אנדריי עובד עם כל סוגי העץ ומשתמש אך ורק בחומרים האיכותיים ביותר. הרמה שלו היא לא רק מקצועית — היא אמנותית.
+          <p data-he="כל פריט מיוצר לפי הזמנה אישית, עם בחירה מלאה של חומרים, מידות וגימור. הרמה והאיכות — ללא פשרות." data-en="Every piece is made to order, with full choice of materials, dimensions and finish. Quality and craftsmanship — without compromise.">
+            כל פריט מיוצר לפי הזמנה אישית, עם בחירה מלאה של חומרים, מידות וגימור. הרמה והאיכות — ללא פשרות.
           </p>
           <div class="artist-name-tag">BARIK ARTS — HANDCRAFTED SINCE DAY ONE</div>
         </div>
@@ -1711,6 +1720,7 @@
       'images/wooden_glow.jpg':        ['images/wooden_glow.jpg', 'images/driftwood_lamp.jpg', 'images/console_table_2.jpg'],
       'images/raw_essence.jpg':        ['images/raw_essence.jpg', 'images/raw_essence_2.jpg'],
       'images/console_table.jpg':      ['images/console_table.jpg', 'images/console_table_4.jpg'],
+      'images/live_table.jpg':          ['images/live_table.jpg'],
     };
 
     let lbGallery = [];
