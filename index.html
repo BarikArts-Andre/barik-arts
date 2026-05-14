@@ -397,18 +397,23 @@
        PRODUCTS
     ═══════════════════════════════════════════ */
     /* ═══════════════════════════════════════════
-       CATALOG SLIDESHOW
+       CATALOG — GALLERY SPLIT VIEW
     ═══════════════════════════════════════════ */
-    #products { background: var(--dark); padding: 0; }
-    #products > .container { padding: 0; max-width: 100%; }
-    #products .section-header { padding: 3.5rem 2.5rem 2rem; }
+    #products { background: var(--dark); }
 
-    .catalog-viewer { position: relative; }
+    .catalog-viewer { width: 100%; }
+
+    /* Split: image left (55%), info right (45%) */
+    .cat-split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      height: 520px;
+      border: 1px solid var(--border);
+    }
+    html[dir="rtl"] .cat-split { direction: rtl; }
+
     .cat-img-wrap {
       position: relative;
-      width: 100%;
-      height: 72vh;
-      min-height: 400px;
       overflow: hidden;
       background: var(--dark3);
     }
@@ -417,116 +422,141 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.45s ease;
     }
     .cat-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(10,7,2,0.5);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(10,7,2,0.45);
+      border: 1px solid rgba(255,255,255,0.18);
       color: var(--white);
-      font-size: 2rem;
-      width: 3rem;
-      height: 3rem;
+      font-size: 1.6rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      cursor: pointer;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      border-radius: 50%;
-      transition: background 0.2s, border-color 0.2s;
       z-index: 2;
-      line-height: 1;
       padding: 0;
+      line-height: 1;
+      transition: background 0.2s;
     }
-    .cat-arrow:hover { background: rgba(201,168,76,0.45); border-color: var(--gold); }
-    .cat-prev { left: 1.2rem; }
-    .cat-next { right: 1.2rem; }
-    .cat-counter {
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.5);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      pointer-events: none;
-    }
-    .cat-info-bar {
+    .cat-arrow:hover { background: rgba(201,168,76,0.45); }
+    .cat-prev { left: 0.85rem; }
+    .cat-next { right: 0.85rem; }
+
+    /* Info panel */
+    .cat-info-panel {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 2rem 2.5rem 1.5rem;
-      gap: 2rem;
-      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem 3rem;
+      background: var(--dark2);
+      border-right: 1px solid var(--border);
     }
-    .cat-info-left { flex-shrink: 0; }
+    html[dir="rtl"] .cat-info-panel {
+      border-right: none;
+      border-left: 1px solid var(--border);
+      text-align: right;
+    }
     .cat-price-tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
       color: var(--gold);
-      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
     }
     .cat-name {
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 2.2vw, 2.1rem);
       font-weight: 700;
       color: var(--white);
-      line-height: 1.2;
+      line-height: 1.15;
+      margin-bottom: 0.3rem;
     }
-    html[lang="en"] .cat-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-    }
+    html[lang="en"] .cat-name { font-family: 'Playfair Display', serif; font-weight: 400; }
     .cat-name-sub {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.65rem;
       font-weight: 100;
       color: var(--dim);
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-top: 0.4rem;
+      margin-bottom: 1.5rem;
     }
-    .cat-info-right { max-width: 420px; }
+    .cat-sep {
+      width: 32px;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.4rem;
+    }
     .cat-desc {
       color: var(--dim);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      margin-bottom: 1.2rem;
+      font-size: 0.87rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      flex: 1;
     }
     .cat-btn {
       display: inline-block;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       color: var(--gold);
       text-transform: uppercase;
       text-decoration: none;
       border-bottom: 1px solid var(--gold-d);
       padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.2s;
+      align-self: flex-start;
     }
-    .cat-btn:hover { color: var(--gold-l); border-color: var(--gold); }
-    .cat-dots {
+    html[dir="rtl"] .cat-btn { align-self: flex-start; }
+    .cat-btn:hover { color: var(--gold-l); }
+
+    /* Bottom nav bar */
+    .cat-nav-bar {
       display: flex;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 1.2rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0.2rem 0.3rem;
     }
+    .cat-dots { display: flex; gap: 0.35rem; }
     .cat-dot {
-      width: 22px;
-      height: 3px;
-      border-radius: 2px;
-      background: rgba(255,255,255,0.22);
+      width: 20px;
+      height: 2px;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.2);
       border: none;
       cursor: pointer;
-      transition: background 0.2s, width 0.2s;
       padding: 0;
+      transition: background 0.2s, width 0.2s;
     }
-    .cat-dot.active { background: var(--gold); width: 30px; }
-    .cat-dot:hover { background: rgba(255,255,255,0.55); }
-    @media (max-width: 680px) {
-      .cat-img-wrap { height: 56vw; min-height: 260px; }
-      .cat-info-bar { flex-direction: column; gap: 1rem; }
-      .cat-info-right { max-width: 100%; }
+    .cat-dot.active { background: var(--gold); width: 28px; }
+    .cat-dot:hover { background: rgba(255,255,255,0.5); }
+    .cat-counter {
+      font-size: 0.67rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      direction: ltr;
+    }
+
+    /* Mobile — stacked */
+    @media (max-width: 720px) {
+      .cat-split {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        height: auto;
+        border: none;
+        border-top: 1px solid var(--border);
+      }
+      .cat-img-wrap { height: min(70vw, 340px); }
+      .cat-info-panel {
+        padding: 1.8rem 0 1.2rem;
+        background: transparent;
+        border: none !important;
+        border-top: 1px solid var(--border) !important;
+      }
       .cat-name { font-size: 1.5rem; }
     }
 
@@ -905,11 +935,9 @@
       .footer-inner { flex-direction: column; align-items: flex-start; text-align: start; }
       html[dir="rtl"] .footer-inner { align-items: flex-end; text-align: right; }
       .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
-      .cat-img-wrap { height: 50vw; min-height: 260px; }
       .about-stats { gap: 1.5rem; }
     }
     @media (max-width: 480px) {
-      .cat-img-wrap { height: 62vw; min-height: 240px; }
       .process-steps { grid-template-columns: 1fr; }
       /* hamburger always visible on mobile */
     }
@@ -1364,26 +1392,27 @@
         <p data-he="פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית" data-en="Handcrafted pieces in wood, iron and concrete — each made individually and customised to order">פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית</p>
       </div>
 
-      <!-- Catalog Slideshow -->
+      <!-- Catalog Gallery -->
       <div class="catalog-viewer" id="catalogViewer">
-        <div class="cat-img-wrap">
-          <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
-          <button class="cat-arrow cat-prev" onclick="catNav(-1)" aria-label="הפריט הקודם">&#8249;</button>
-          <button class="cat-arrow cat-next" onclick="catNav(1)" aria-label="הפריט הבא">&#8250;</button>
-          <div class="cat-counter" id="catCounter">1 / 8</div>
-        </div>
-        <div class="cat-info-bar">
-          <div class="cat-info-left">
+        <div class="cat-split">
+          <div class="cat-img-wrap">
+            <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
+            <button class="cat-arrow cat-prev" onclick="catNav(-1)" aria-label="הפריט הקודם">&#8249;</button>
+            <button class="cat-arrow cat-next" onclick="catNav(1)" aria-label="הפריט הבא">&#8250;</button>
+          </div>
+          <div class="cat-info-panel">
             <div class="cat-price-tag" id="catPrice">€820</div>
             <h2 class="cat-name" id="catName">מנורת גזע</h2>
             <div class="cat-name-sub" id="catNameSub">Natural Elevation</div>
-          </div>
-          <div class="cat-info-right">
+            <div class="cat-sep"></div>
             <p class="cat-desc" id="catDesc">עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש</p>
             <a href="#contact" class="cat-btn" id="catBtn" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
           </div>
         </div>
-        <div class="cat-dots" id="catDots"></div>
+        <div class="cat-nav-bar">
+          <div class="cat-dots" id="catDots"></div>
+          <span class="cat-counter" id="catCounter" dir="ltr">1 / 8</span>
+        </div>
       </div>
     </div>
   </section>
