@@ -137,66 +137,91 @@
     .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     /* ── Overlay Menu ── */
+    /* ── Overlay Menu (Side Drawer) ── */
+    nav { direction: ltr; } /* logo always left, hamburger always right */
     .nav-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(19,13,4,0.97);
       z-index: 99;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.35s ease;
     }
+    .nav-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,7,2,0.55);
+    }
     .nav-overlay.open { opacity: 1; pointer-events: all; }
     .nav-overlay-inner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(300px, 85vw);
+      height: 100%;
+      background: var(--dark2);
+      border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.1rem;
-      text-align: center;
+      align-items: flex-end;
+      padding: 5.5rem 2rem 2.5rem;
+      gap: 0.15rem;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
     }
+    html[dir="ltr"] .nav-overlay-inner {
+      right: auto;
+      left: 0;
+      border-left: none;
+      border-right: 1px solid var(--border);
+      align-items: flex-start;
+      transform: translateX(-100%);
+    }
+    .nav-overlay.open .nav-overlay-inner { transform: translateX(0); }
     .nav-overlay a,
     .nav-overlay button.nav-overlay-link {
       font-family: 'Heebo', sans-serif;
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-size: clamp(1.15rem, 4vw, 1.45rem);
       font-weight: 300;
       color: var(--white);
       text-decoration: none;
-      padding: 0.55rem 2rem;
+      padding: 0.6rem 0.5rem;
       letter-spacing: 0.02em;
       background: none;
       border: none;
       cursor: pointer;
-      transition: color 0.2s, letter-spacing 0.2s;
+      transition: color 0.2s;
       display: block;
+      text-align: right;
+      width: 100%;
     }
+    html[dir="ltr"] .nav-overlay a,
+    html[dir="ltr"] .nav-overlay button.nav-overlay-link { text-align: left; }
     .nav-overlay a:hover,
-    .nav-overlay button.nav-overlay-link:hover { color: var(--gold); letter-spacing: 0.07em; }
+    .nav-overlay button.nav-overlay-link:hover { color: var(--gold); }
     .overlay-divider {
-      width: 40px;
+      width: 100%;
       height: 1px;
       background: var(--border);
-      margin: 0.8rem auto;
+      margin: 0.6rem 0;
     }
     .overlay-ig {
-      font-size: 0.85rem !important;
+      font-size: 0.8rem !important;
       letter-spacing: 0.12em !important;
       color: var(--dim) !important;
     }
     .overlay-cta {
-      margin-top: 0.5rem;
-      padding: 0.8rem 3rem !important;
+      margin-top: 0.4rem;
+      padding: 0.7rem 1.8rem !important;
       background: var(--gold) !important;
       color: var(--dark) !important;
       font-weight: 600 !important;
-      font-size: 0.9rem !important;
+      font-size: 0.85rem !important;
       letter-spacing: 0.08em !important;
       border-radius: var(--radius) !important;
     }
-    .overlay-cta:hover { background: var(--gold-l) !important; letter-spacing: 0.08em !important; }
+    .overlay-cta:hover { background: var(--gold-l) !important; }
 
     /* ── Lightbox close on image ── */
     .lb-close-img {
@@ -369,78 +394,105 @@
     /* ═══════════════════════════════════════════
        PRODUCTS
     ═══════════════════════════════════════════ */
-    #products { background: var(--dark2); }
+    /* ═══════════════════════════════════════════
+       CATALOG SLIDESHOW
+    ═══════════════════════════════════════════ */
+    #products { background: var(--dark); padding: 0; }
+    #products > .container { padding: 0; max-width: 100%; }
+    #products .section-header { padding: 3.5rem 2.5rem 2rem; }
 
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
-    }
-
-    .product-card {
+    .catalog-viewer { position: relative; }
+    .cat-img-wrap {
       position: relative;
+      width: 100%;
+      height: 72vh;
+      min-height: 400px;
       overflow: hidden;
-      aspect-ratio: 3/4;
       background: var(--dark3);
-      cursor: pointer;
     }
-    .product-card img {
+    .cat-img-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s ease, filter 0.4s;
-      filter: brightness(0.85);
+      object-position: center;
+      transition: opacity 0.5s ease;
     }
-    .product-card:hover img {
-      transform: scale(1.06);
-      filter: brightness(0.65);
-    }
-    .product-card-overlay {
+    .cat-arrow {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(25,18,8,0.95) 0%, rgba(25,18,8,0.2) 50%, transparent 100%);
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10,7,2,0.5);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-size: 2rem;
+      width: 3rem;
+      height: 3rem;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.8rem;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.2s, border-color 0.2s;
+      z-index: 2;
+      line-height: 1;
+      padding: 0;
     }
-    .product-price {
+    .cat-arrow:hover { background: rgba(201,168,76,0.45); border-color: var(--gold); }
+    .cat-prev { left: 1.2rem; }
+    .cat-next { right: 1.2rem; }
+    .cat-counter {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      pointer-events: none;
+    }
+    .cat-info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2rem 2.5rem 1.5rem;
+      gap: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-info-left { flex-shrink: 0; }
+    .cat-price-tag {
       font-size: 0.72rem;
       letter-spacing: 0.2em;
       color: var(--gold);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
     }
-    .product-name-he {
-      font-size: 1.3rem;
+    .cat-name {
+      font-size: 2rem;
       font-weight: 700;
       color: var(--white);
       line-height: 1.2;
     }
-    .product-name-en {
+    html[lang="en"] .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+    }
+    .cat-name-sub {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 100;
       color: var(--dim);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin-top: 0.2rem;
+      margin-top: 0.4rem;
     }
-    .product-desc {
-      font-size: 0.82rem;
+    .cat-info-right { max-width: 420px; }
+    .cat-desc {
       color: var(--dim);
-      margin-top: 0.6rem;
-      line-height: 1.5;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.35s, transform 0.35s;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
     }
-    .product-card:hover .product-desc {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .product-btn {
+    .cat-btn {
       display: inline-block;
-      margin-top: 1rem;
       font-size: 0.75rem;
       letter-spacing: 0.12em;
       color: var(--gold);
@@ -448,26 +500,32 @@
       text-decoration: none;
       border-bottom: 1px solid var(--gold-d);
       padding-bottom: 2px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.35s 0.05s, transform 0.35s 0.05s;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .product-card:hover .product-btn {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* placeholder for missing images */
-    .product-card.placeholder {
-      background: var(--dark3);
+    .cat-btn:hover { color: var(--gold-l); border-color: var(--gold); }
+    .cat-dots {
       display: flex;
-      align-items: center;
       justify-content: center;
+      gap: 0.4rem;
+      padding: 1.2rem;
     }
-    .product-card.placeholder .placeholder-label {
-      color: var(--border);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-align: center;
+    .cat-dot {
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.22);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+      padding: 0;
+    }
+    .cat-dot.active { background: var(--gold); width: 30px; }
+    .cat-dot:hover { background: rgba(255,255,255,0.55); }
+    @media (max-width: 680px) {
+      .cat-img-wrap { height: 56vw; min-height: 260px; }
+      .cat-info-bar { flex-direction: column; gap: 1rem; }
+      .cat-info-right { max-width: 100%; }
+      .cat-name { font-size: 1.5rem; }
     }
 
     /* ═══════════════════════════════════════════
@@ -539,6 +597,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
+    }
+    .about-grid.about-text-only {
+      grid-template-columns: 1fr;
+      max-width: 680px;
     }
     .about-img {
       position: relative;
@@ -841,13 +903,11 @@
       .footer-inner { flex-direction: column; align-items: flex-start; text-align: start; }
       html[dir="rtl"] .footer-inner { align-items: flex-end; text-align: right; }
       .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
-      .product-card { aspect-ratio: 2/3; }
+      .cat-img-wrap { height: 50vw; min-height: 260px; }
       .about-stats { gap: 1.5rem; }
     }
     @media (max-width: 480px) {
-      .products-grid { grid-template-columns: 1fr; gap: 2px; }
-      .product-card { aspect-ratio: 4/5; min-height: 72vw; }
+      .cat-img-wrap { height: 62vw; min-height: 240px; }
       .process-steps { grid-template-columns: 1fr; }
       /* hamburger always visible on mobile */
     }
@@ -1310,105 +1370,27 @@
         <p data-he="פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית" data-en="Handcrafted pieces in wood, iron and concrete — each made individually and customised to order">פריטים בעבודת יד מעץ, ברזל ובטון — כל אחד מיוצר בנפרד ומותאם אישית</p>
       </div>
 
-      <div class="products-grid">
-
-        <!-- 1 -->
-        <div class="product-card">
-          <img src="images/natural_elevation.jpg" alt="מנורת גזע — עמוד תאורה מגזע עץ טבעי" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€820</span>
-            <div class="product-name-he" data-he="מנורת גזע" data-en="Natural Elevation">מנורת גזע</div>
-            <div class="product-name-en" data-he="Natural Elevation" data-en="Natural Elevation">Natural Elevation</div>
-            <p class="product-desc" data-he="עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש" data-en="Floor lamp from a natural wood trunk — raw, dramatic, one of a kind">עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
+      <!-- Catalog Slideshow -->
+      <div class="catalog-viewer" id="catalogViewer">
+        <div class="cat-img-wrap">
+          <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
+          <button class="cat-arrow cat-prev" onclick="catNav(-1)" aria-label="הפריט הקודם">&#8249;</button>
+          <button class="cat-arrow cat-next" onclick="catNav(1)" aria-label="הפריט הבא">&#8250;</button>
+          <div class="cat-counter" id="catCounter">1 / 8</div>
+        </div>
+        <div class="cat-info-bar">
+          <div class="cat-info-left">
+            <div class="cat-price-tag" id="catPrice">€820</div>
+            <h2 class="cat-name" id="catName">מנורת גזע</h2>
+            <div class="cat-name-sub" id="catNameSub">Natural Elevation</div>
+          </div>
+          <div class="cat-info-right">
+            <p class="cat-desc" id="catDesc">עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש</p>
+            <a href="#contact" class="cat-btn" id="catBtn" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
           </div>
         </div>
-
-        <!-- 3 — new: coil lamp -->
-        <div class="product-card" id="card-coil">
-          <img src="images/coil_lamp.jpg" alt="מנורת קפיץ — גזע עץ עם ספירלת ברזל ונורת אדיסון" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.style.display='none';" />
-          <div class="product-card-overlay">
-            <span class="product-price">€580</span>
-            <div class="product-name-he" data-he="מנורת קפיץ" data-en="Coil Light">מנורת קפיץ</div>
-            <div class="product-name-en" data-he="Coil Light" data-en="Coil Light">Coil Light</div>
-            <p class="product-desc" data-he="מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון" data-en="Table lamp — natural wood stump, iron coil spring, Edison filament bulb">מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת קפיץ" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 4 — מנורת בול -->
-        <div class="product-card">
-          <img src="images/wooden_glow_3.jpg" alt="מנורת בול — גזע מגולף עם תאורה פנימית" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€490</span>
-            <div class="product-name-he" data-he="מנורת בול" data-en="Log Lamp">מנורת בול</div>
-            <div class="product-name-en" data-he="Log Lamp" data-en="Log Lamp">Log Lamp</div>
-            <p class="product-desc" data-he="גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו" data-en="Hand-carved wood log — hollow interior with bulb. Each log unique in shape and texture">גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת בול" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 6 -->
-        <div class="product-card">
-          <img src="images/industrial_light.jpg" alt="מנורת צינורות — ברזל תעשייתי ועץ גולמי" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€220</span>
-            <div class="product-name-he" data-he="מנורת צינורות" data-en="Industrial Light">מנורת צינורות</div>
-            <div class="product-name-en" data-he="Industrial Light" data-en="Industrial Light">Industrial Light</div>
-            <p class="product-desc" data-he="ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי" data-en="Industrial iron meets raw wood — a perfect contrast turned design object">ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת צינורות" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 7 -->
-        <div class="product-card">
-          <img src="images/wooden_glow.jpg" alt="מנורת עץ — עץ המדליק אור רך מבפנים" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€390</span>
-            <div class="product-name-he" data-he="מנורת עץ" data-en="Wooden Glow">מנורת עץ</div>
-            <div class="product-name-en" data-he="Wooden Glow" data-en="Wooden Glow">Wooden Glow</div>
-            <p class="product-desc" data-he="תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים" data-en="Light that warms the soul — wood that glows softly from within">תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על מנורת עץ" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 8 -->
-        <div class="product-card">
-          <img src="images/raw_essence.jpg" alt="פסל בטון וברזל — יצירה מברזל, בטון ועץ" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€1,550</span>
-            <div class="product-name-he" data-he="פסל בטון וברזל" data-en="Raw Essence">פסל בטון וברזל</div>
-            <div class="product-name-en" data-he="Raw Essence" data-en="Raw Essence">Raw Essence</div>
-            <p class="product-desc" data-he="פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל" data-en="A large sculpture — iron, concrete and wood. A piece that defines a space">פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על פסל בטון וברזל" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 8 — live edge table -->
-        <div class="product-card">
-          <img src="images/live_table.jpg" alt="שולחן גזע — עץ חי עם רגלי ברזל" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€1,450</span>
-            <div class="product-name-he" data-he="שולחן גזע" data-en="Live Edge Table">שולחן גזע</div>
-            <div class="product-name-en" data-he="Live Edge Table" data-en="Live Edge Table">Live Edge Table</div>
-            <p class="product-desc" data-he="שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי" data-en="Table from a natural live-edge slab with iron legs — every piece one of a kind">שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על שולחן גזע" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-        <!-- 9 — console table -->
-        <div class="product-card">
-          <img src="images/console_table.jpg" alt="מזנון — עץ ישן ורגלי מוט ברזל עם מדף תחתון" loading="lazy" />
-          <div class="product-card-overlay">
-            <span class="product-price">€1,190</span>
-            <div class="product-name-he" data-he="מזנון" data-en="Mizmun Console">מזנון</div>
-            <div class="product-name-en" data-he="Mizmun Console" data-en="Mizmun Console">Mizmun Console</div>
-            <p class="product-desc" data-he="מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה" data-en="Reclaimed wood console with rebar legs and a lower iron shelf — fits an entryway, living room or bedroom">מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה</p>
-            <a href="#contact" class="product-btn" aria-label="ספרי לי עוד על המזנון" data-he="ספרי לי עוד ←" data-en="Tell Me More →">ספרי לי עוד ←</a>
-          </div>
-        </div>
-
-      </div><!-- /products-grid -->
+        <div class="cat-dots" id="catDots"></div>
+      </div>
     </div>
   </section>
   </main>
@@ -1420,11 +1402,7 @@
   <div class="page" data-page="about">
   <section id="about">
     <div class="container">
-      <div class="about-grid">
-
-        <div class="about-img">
-          <img src="images/rooted_form.jpg" alt="Barik Arts — about" />
-        </div>
+      <div class="about-grid about-text-only">
 
         <div class="about-text">
           <span class="section-tag" data-he="אודות" data-en="About">אודות</span>
@@ -1740,7 +1718,7 @@
       });
       window.scrollTo(0, 0);
       // re-attach lightbox clicks if switching to catalog
-      if (pageId === 'catalog') attachProductCards();
+      if (pageId === 'catalog') catRender();
     }
 
     function routeFromHash() {
@@ -1756,6 +1734,98 @@
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     });
+
+    // ── Catalog Slideshow ───────────────────────
+    const CAT_PRODUCTS = [
+      { img: 'images/natural_elevation.jpg', price: '€820',
+        nameHe: 'מנורת גזע',    nameEn: 'Natural Elevation',
+        descHe: 'עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש',
+        descEn: 'Floor lamp from a natural wood trunk — raw, dramatic, one of a kind' },
+      { img: 'images/coil_lamp.jpg', price: '€580',
+        nameHe: 'מנורת קפיץ',   nameEn: 'Coil Light',
+        descHe: 'מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון',
+        descEn: 'Table lamp — natural wood stump, iron coil spring, Edison filament bulb' },
+      { img: 'images/wooden_glow_3.jpg', price: '€490',
+        nameHe: 'מנורת בול',    nameEn: 'Log Lamp',
+        descHe: 'גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו',
+        descEn: 'Hand-carved wood log — hollow interior with bulb. Each log unique in shape and texture' },
+      { img: 'images/industrial_light.jpg', price: '€220',
+        nameHe: 'מנורת צינורות', nameEn: 'Industrial Light',
+        descHe: 'ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי',
+        descEn: 'Industrial iron meets raw wood — a perfect contrast turned design object' },
+      { img: 'images/wooden_glow.jpg', price: '€390',
+        nameHe: 'מנורת עץ',     nameEn: 'Wooden Glow',
+        descHe: 'תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים',
+        descEn: 'Light that warms the soul — wood that glows softly from within' },
+      { img: 'images/raw_essence.jpg', price: '€1,550',
+        nameHe: 'פסל בטון וברזל', nameEn: 'Raw Essence',
+        descHe: 'פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל',
+        descEn: 'A large sculpture — iron, concrete and wood. A piece that defines a space' },
+      { img: 'images/live_table.jpg', price: '€1,450',
+        nameHe: 'שולחן גזע',    nameEn: 'Live Edge Table',
+        descHe: 'שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי',
+        descEn: 'Table from a natural live-edge slab with iron legs — every piece one of a kind' },
+      { img: 'images/console_table.jpg', price: '€1,190',
+        nameHe: 'מזנון',         nameEn: 'Mizmun Console',
+        descHe: 'מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה',
+        descEn: 'Reclaimed wood console with rebar legs and a lower iron shelf — fits an entryway, living room or bedroom' },
+    ];
+
+    let catIdx = 0;
+
+    function catRender() {
+      const p = CAT_PRODUCTS[catIdx];
+      const lang = typeof currentLang !== 'undefined' ? currentLang : 'he';
+      const img = document.getElementById('catImg');
+      if (img) {
+        img.style.opacity = '0';
+        img.src = p.img;
+        img.alt = p.nameHe;
+        img.onload = () => { img.style.opacity = '1'; };
+      }
+      const el = id => document.getElementById(id);
+      if (el('catPrice'))   el('catPrice').textContent   = p.price;
+      if (el('catName'))    el('catName').textContent    = lang === 'he' ? p.nameHe : p.nameEn;
+      if (el('catNameSub')) el('catNameSub').textContent = p.nameEn;
+      if (el('catDesc'))    el('catDesc').textContent    = lang === 'he' ? p.descHe : p.descEn;
+      if (el('catCounter')) el('catCounter').textContent = (catIdx + 1) + ' / ' + CAT_PRODUCTS.length;
+      // btn direction
+      const btn = el('catBtn');
+      if (btn) btn.textContent = lang === 'he' ? 'ספרי לי עוד ←' : 'Tell Me More →';
+      // dots
+      const dotsEl = el('catDots');
+      if (dotsEl) {
+        dotsEl.innerHTML = '';
+        CAT_PRODUCTS.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'cat-dot' + (i === catIdx ? ' active' : '');
+          d.setAttribute('aria-label', 'פריט ' + (i + 1));
+          d.onclick = () => { catIdx = i; catRender(); };
+          dotsEl.appendChild(d);
+        });
+      }
+    }
+
+    function catNav(dir) {
+      catIdx = (catIdx + dir + CAT_PRODUCTS.length) % CAT_PRODUCTS.length;
+      catRender();
+    }
+
+    // Touch swipe on catalog image
+    (function() {
+      let tx = 0;
+      document.addEventListener('touchstart', e => {
+        if (e.target.closest('#catalogViewer')) tx = e.touches[0].clientX;
+      }, { passive: true });
+      document.addEventListener('touchend', e => {
+        if (!e.target.closest('#catalogViewer')) return;
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 45) catNav(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    })();
+
+    // Init catalog dots on DOMContentLoaded (already called after showPage too)
+    document.addEventListener('DOMContentLoaded', () => { catRender(); });
 
     // ── Lightbox + Carousel ──────────────────────
     // Gallery data: main image src → array of all images for that product
@@ -1872,13 +1942,8 @@
       }, { passive: true });
     })();
 
-    // Attach click to all product cards
-    function attachProductCards() {
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.onclick = () => openLightbox(card);
-      });
-    }
-    attachProductCards();
+    // init catalog on load
+    catRender();
 
     // ── Language toggle ─────────────────────────
     let currentLang = 'he';
@@ -1899,6 +1964,8 @@
       document.querySelectorAll('[data-placeholder-he]').forEach(el => {
         el.placeholder = el.dataset[`placeholder${currentLang === 'he' ? 'He' : 'En'}`];
       });
+      // update catalog slideshow text
+      catRender();
     }
 
     // ── Lead form → WhatsApp ────────────────────
