@@ -483,6 +483,8 @@
       padding: 0;
       line-height: 1;
       transition: background 0.2s;
+      direction: ltr; /* prevent RTL bidi-mirroring of arrow glyphs */
+      unicode-bidi: isolate;
     }
     .cat-arrow:hover { background: rgba(201,168,76,0.45); }
     .cat-prev { left: 0.85rem; }
@@ -576,6 +578,8 @@
       padding: 0;
       transition: border-color 0.2s, color 0.2s;
       flex-shrink: 0;
+      direction: ltr;
+      unicode-bidi: isolate;
     }
     .cat-prod-arrow:hover { border-color: var(--gold); color: var(--gold); }
     .cat-dots { display: flex; gap: 0.35rem; flex: 1; }
