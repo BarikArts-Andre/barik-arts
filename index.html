@@ -420,7 +420,21 @@
       align-items: center;
       justify-content: center;
     }
-    .cat-img-wrap img {
+    /* blurred background fills black space — same image, blurred+darkened */
+    .cat-img-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(22px) brightness(0.32) saturate(0.7);
+      transform: scale(1.12);
+      z-index: 0;
+      transition: opacity 0.45s ease;
+    }
+    .cat-img-wrap img#catImg {
+      position: relative;
+      z-index: 1;
       max-width: 100%;
       max-height: 100%;
       width: auto;
@@ -1439,6 +1453,7 @@
       <div class="catalog-viewer" id="catalogViewer">
         <div class="cat-split">
           <div class="cat-img-wrap">
+            <img class="cat-img-bg" id="catImgBg" src="images/natural_elevation.jpg" alt="" aria-hidden="true" />
             <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
             <button class="cat-arrow cat-prev" onclick="catImgNav(-1)" aria-label="תמונה קודמת">&#8249;</button>
             <button class="cat-arrow cat-next" onclick="catImgNav(1)" aria-label="תמונה הבאה">&#8250;</button>
@@ -1814,13 +1829,20 @@
       const p = CAT_PRODUCTS[catIdx];
       const lang = typeof currentLang !== 'undefined' ? currentLang : 'he';
       const img = document.getElementById('catImg');
+      const imgBg = document.getElementById('catImgBg');
+      const src = p.gallery[catImgIdx];
       if (img) {
         img.style.opacity = '0';
-        img.src = p.gallery[catImgIdx];
+        img.src = src;
         img.alt = p.nameHe;
         img.onload = () => { img.style.opacity = '1'; };
-        // if cached, show immediately
         if (img.complete) img.style.opacity = '1';
+      }
+      if (imgBg) {
+        imgBg.style.opacity = '0';
+        imgBg.src = src;
+        imgBg.onload = () => { imgBg.style.opacity = '1'; };
+        if (imgBg.complete) imgBg.style.opacity = '1';
       }
       const el = id => document.getElementById(id);
       if (el('catPrice'))   el('catPrice').textContent   = p.price;
