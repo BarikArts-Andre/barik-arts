@@ -1164,27 +1164,26 @@
     .lb-prev { left: 0.5rem; }
     .lb-next { right: 0.5rem; }
     html[dir="rtl"] .lb-prev { left: 0.5rem; right: auto; }
-    html[dir="rtl"] .lb-next { right: auto; left: auto; right: 0.5rem; }
+    html[dir="rtl"] .lb-next { right: 0.5rem; left: auto; }
     .lb-dots {
       position: absolute;
       bottom: 0.75rem;
-      left: 0.75rem;
+      right: 0.75rem;
       display: flex;
-      gap: 0.45rem;
+      gap: 0.35rem;
       z-index: 3;
     }
-    html[dir="rtl"] .lb-dots { left: auto; right: 0.75rem; }
     .lb-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
       background: rgba(255,255,255,0.35);
       border: none;
       cursor: pointer;
       padding: 0;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, width 0.2s;
     }
-    .lb-dot.active { background: var(--gold); transform: scale(1.25); }
+    .lb-dot.active { background: var(--gold); width: 30px; }
     .lb-dot:hover { background: rgba(255,255,255,0.7); }
     .lightbox-info {
       padding: 2.5rem 2rem;
@@ -1237,6 +1236,14 @@
       .lightbox-box { grid-template-columns: 1fr; }
       .lightbox-info { padding: 1.5rem; }
     }
+
+    /* ═══════════════════════════════════════════
+       MULTI-PAGE ROUTING
+    ═══════════════════════════════════════════ */
+    .page { display: none; }
+    .page.page-active { display: block; }
+    /* Hero page needs full viewport */
+    .page[data-page="home"].page-active { display: flex; flex-direction: column; }
   </style>
 </head>
 
@@ -1249,7 +1256,7 @@
        NAV
   ══════════════════════════════════ -->
   <nav id="navbar" aria-label="ניווט ראשי">
-    <a href="#" class="nav-logo">BARIK<span>&nbsp;ARTS</span></a>
+    <a href="#home" class="nav-logo">BARIK<span>&nbsp;ARTS</span></a>
     <div class="nav-right">
       <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-label="החלף שפה">EN</button>
       <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="תפריט" aria-expanded="false">
@@ -1261,7 +1268,7 @@
   <!-- Overlay menu -->
   <div class="nav-overlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="תפריט ניווט">
     <div class="nav-overlay-inner">
-      <a href="#products" onclick="closeMenu()" data-he="קולקציה" data-en="Collection">קולקציה</a>
+      <a href="#catalog" onclick="closeMenu()" data-he="קטלוג" data-en="Catalog">קטלוג</a>
       <a href="#about" onclick="closeMenu()" data-he="אודות" data-en="About">אודות</a>
       <a href="#artist" onclick="closeMenu()" data-he="האמן" data-en="The Artist">האמן</a>
       <button class="nav-overlay-link" onclick="closeMenu(); setTimeout(()=>document.getElementById('a11y-btn').click(),200);" data-he="נגישות" data-en="Accessibility">נגישות</button>
@@ -1273,8 +1280,9 @@
   </div>
 
   <!-- ══════════════════════════════════
-       HERO
+       PAGE: HOME
   ══════════════════════════════════ -->
+  <div class="page" data-page="home">
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -1284,12 +1292,14 @@
       <p class="hero-sub" data-he="יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון" data-en="Bespoke art pieces — wood, iron, concrete">יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון</p>
       <a href="#contact" class="hero-btn" data-he="השאירו פרטים" data-en="Leave Your Details">השאירו פרטים</a>
     </div>
-    <div class="hero-scroll">scroll</div>
+    <div class="hero-scroll" onclick="location.hash='catalog'" style="cursor:pointer">scroll</div>
   </section>
+  </div>
 
   <!-- ══════════════════════════════════
-       PRODUCTS
+       PAGE: CATALOG
   ══════════════════════════════════ -->
+  <div class="page" data-page="catalog">
   <main id="main-content">
   <section id="products">
     <div class="container">
@@ -1401,10 +1411,13 @@
       </div><!-- /products-grid -->
     </div>
   </section>
+  </main>
+  </div><!-- /page: catalog -->
 
   <!-- ══════════════════════════════════
-       ABOUT
+       PAGE: ABOUT
   ══════════════════════════════════ -->
+  <div class="page" data-page="about">
   <section id="about">
     <div class="container">
       <div class="about-grid">
@@ -1444,8 +1457,14 @@
 
       </div>
     </div>
-    <div class="about-artist-divider"></div>
+  </section>
+  </div><!-- /page: about -->
 
+  <!-- ══════════════════════════════════
+       PAGE: ARTIST
+  ══════════════════════════════════ -->
+  <div class="page" data-page="artist">
+  <section id="artist-section">
     <div class="container">
       <div class="artist-inner" id="artist">
         <div class="artist-photos">
@@ -1468,7 +1487,13 @@
       </div>
     </div>
   </section>
+  </div><!-- /page: artist -->
 
+  <!-- ══════════════════════════════════
+       PAGE: CONTACT
+  ══════════════════════════════════ -->
+  <div class="page" data-page="contact">
+  <!-- ── Process steps ── -->
   <!-- ══════════════════════════════════
        PROCESS
   ══════════════════════════════════ -->
@@ -1555,7 +1580,6 @@
       </div>
     </div>
   </section>
-  </main>
 
   <!-- ══════════════════════════════════
        FOOTER
@@ -1580,6 +1604,7 @@
       <p class="footer-copy" data-he="© 2025 Barik Arts. כל הזכויות שמורות." data-en="© 2025 Barik Arts. All rights reserved.">© 2025 Barik Arts. כל הזכויות שמורות.</p>
     </div>
   </footer>
+  </div><!-- /page: contact -->
 
   <!-- ACCESSIBILITY WIDGET -->
   <button id="a11y-btn" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel" onclick="toggleA11yPanel()">
@@ -1705,6 +1730,28 @@
        SCRIPTS
   ══════════════════════════════════ -->
   <script>
+    // ── Page routing (hash-based) ────────────────
+    const PAGES = ['home', 'catalog', 'about', 'artist', 'contact'];
+
+    function showPage(pageId) {
+      if (!PAGES.includes(pageId)) pageId = 'home';
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.toggle('page-active', p.dataset.page === pageId);
+      });
+      window.scrollTo(0, 0);
+      // re-attach lightbox clicks if switching to catalog
+      if (pageId === 'catalog') attachProductCards();
+    }
+
+    function routeFromHash() {
+      const hash = location.hash.replace('#', '') || 'home';
+      showPage(hash);
+    }
+
+    window.addEventListener('hashchange', routeFromHash);
+    // Run on load
+    document.addEventListener('DOMContentLoaded', routeFromHash);
+
     // ── Sticky nav ──────────────────────────────
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
@@ -1826,9 +1873,12 @@
     })();
 
     // Attach click to all product cards
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.addEventListener('click', () => openLightbox(card));
-    });
+    function attachProductCards() {
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.onclick = () => openLightbox(card);
+      });
+    }
+    attachProductCards();
 
     // ── Language toggle ─────────────────────────
     let currentLang = 'he';
