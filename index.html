@@ -468,12 +468,12 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(10,7,2,0.45);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: var(--white);
-      font-size: 1.6rem;
-      width: 2.4rem;
-      height: 2.4rem;
+      background: rgba(10,7,2,0.28);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      font-size: 1.1rem;
+      width: 1.9rem;
+      height: 1.9rem;
       cursor: pointer;
       border-radius: 50%;
       display: flex;
@@ -564,24 +564,24 @@
       padding: 1rem 0.2rem 0.3rem;
     }
     .cat-prod-arrow {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--dim);
-      font-size: 1.1rem;
-      width: 1.8rem;
-      height: 1.8rem;
+      background: rgba(201,168,76,0.08);
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-size: 1.35rem;
+      width: 2.4rem;
+      height: 2.4rem;
       cursor: pointer;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      transition: border-color 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s;
       flex-shrink: 0;
       direction: ltr;
       unicode-bidi: isolate;
     }
-    .cat-prod-arrow:hover { border-color: var(--gold); color: var(--gold); }
+    .cat-prod-arrow:hover { background: rgba(201,168,76,0.22); }
     .cat-dots { display: flex; gap: 0.35rem; flex: 1; }
     .cat-dot {
       width: 20px;
@@ -1459,8 +1459,8 @@
           <div class="cat-img-wrap">
             <img class="cat-img-bg" id="catImgBg" src="images/natural_elevation.jpg" alt="" aria-hidden="true" />
             <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
-            <button class="cat-arrow cat-prev" onclick="catImgNav(-1)" aria-label="תמונה קודמת">&#8249;</button>
-            <button class="cat-arrow cat-next" onclick="catImgNav(1)" aria-label="תמונה הבאה">&#8250;</button>
+            <button class="cat-arrow cat-prev" onclick="catImgNav(1)" aria-label="תמונה הבאה">&#8249;</button>
+            <button class="cat-arrow cat-next" onclick="catImgNav(-1)" aria-label="תמונה קודמת">&#8250;</button>
             <div class="cat-img-dots" id="catImgDots"></div>
           </div>
           <div class="cat-info-panel">
@@ -1819,6 +1819,10 @@
         descHe: 'שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי',
         descEn: 'Table from a natural live-edge slab with iron legs — every piece unique',
         gallery: ['images/live_table.jpg','images/live_table_2.jpg'] },
+      { price: '€320',   nameHe: 'מנורת סחף',      nameEn: 'Driftwood Edison',
+        descHe: 'ענף סחף שמצא את עצמו — מנורת שולחן מעץ טבעי עם נורת אדיסון וכבל חבל שזור. כל אחת שונה, כל אחת ייחודית',
+        descEn: 'A driftwood branch that found its calling — table lamp with Edison bulb and twisted rope cord. Every piece is one of a kind',
+        gallery: ['images/driftwood_edison.jpg','images/driftwood_edison_2.jpg','images/driftwood_edison_3.jpg'] },
       { price: '€1,190', nameHe: 'מזנון',          nameEn: 'Mizmun Console',
         descHe: 'מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. לכניסה, לסלון, לחדר שינה',
         descEn: 'Reclaimed wood console with rebar legs — for an entryway, living room or bedroom',
