@@ -138,7 +138,9 @@
 
     /* ── Overlay Menu ── */
     /* ── Overlay Menu (Side Drawer) ── */
-    nav { direction: ltr; } /* logo always left, hamburger always right */
+    /* hamburger always on RIGHT regardless of RTL/LTR */
+    html[dir="rtl"] nav { direction: ltr; }
+    html[dir="rtl"] .nav-overlay-inner { direction: rtl; }
     .nav-overlay {
       position: fixed;
       inset: 0;
