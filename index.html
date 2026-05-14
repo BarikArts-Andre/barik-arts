@@ -1299,13 +1299,8 @@
       .lightbox-info { padding: 1.5rem; }
     }
 
-    /* ═══════════════════════════════════════════
-       MULTI-PAGE ROUTING
-    ═══════════════════════════════════════════ */
-    .page { display: none; }
-    .page.page-active { display: block; }
-    /* Hero page needs full viewport */
-    .page[data-page="home"].page-active { display: flex; flex-direction: column; }
+    /* smooth scroll for anchor navigation */
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 
@@ -1318,7 +1313,7 @@
        NAV
   ══════════════════════════════════ -->
   <nav id="navbar" aria-label="ניווט ראשי">
-    <a href="#home" class="nav-logo">BARIK<span>&nbsp;ARTS</span></a>
+    <a href="#" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BARIK<span>&nbsp;ARTS</span></a>
     <div class="nav-right">
       <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-label="החלף שפה">EN</button>
       <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="תפריט" aria-expanded="false">
@@ -1330,7 +1325,7 @@
   <!-- Overlay menu -->
   <div class="nav-overlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="תפריט ניווט">
     <div class="nav-overlay-inner">
-      <a href="#catalog" onclick="closeMenu()" data-he="קטלוג" data-en="Catalog">קטלוג</a>
+      <a href="#products" onclick="closeMenu()" data-he="קטלוג" data-en="Catalog">קטלוג</a>
       <a href="#about" onclick="closeMenu()" data-he="אודות" data-en="About">אודות</a>
       <a href="#artist" onclick="closeMenu()" data-he="האמן" data-en="The Artist">האמן</a>
       <button class="nav-overlay-link" onclick="closeMenu(); setTimeout(()=>document.getElementById('a11y-btn').click(),200);" data-he="נגישות" data-en="Accessibility">נגישות</button>
@@ -1342,9 +1337,8 @@
   </div>
 
   <!-- ══════════════════════════════════
-       PAGE: HOME
+       HERO
   ══════════════════════════════════ -->
-  <div class="page" data-page="home">
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -1354,14 +1348,12 @@
       <p class="hero-sub" data-he="יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון" data-en="Bespoke art pieces — wood, iron, concrete">יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון</p>
       <a href="#contact" class="hero-btn" data-he="השאירו פרטים" data-en="Leave Your Details">השאירו פרטים</a>
     </div>
-    <div class="hero-scroll" onclick="location.hash='catalog'" style="cursor:pointer">scroll</div>
+    <div class="hero-scroll">scroll</div>
   </section>
-  </div>
 
   <!-- ══════════════════════════════════
-       PAGE: CATALOG
+       MAIN CONTENT
   ══════════════════════════════════ -->
-  <div class="page" data-page="catalog">
   <main id="main-content">
   <section id="products">
     <div class="container">
@@ -1395,13 +1387,10 @@
       </div>
     </div>
   </section>
-  </main>
-  </div><!-- /page: catalog -->
 
   <!-- ══════════════════════════════════
-       PAGE: ABOUT
+       ABOUT
   ══════════════════════════════════ -->
-  <div class="page" data-page="about">
   <section id="about">
     <div class="container">
       <div class="about-grid about-text-only">
@@ -1438,12 +1427,10 @@
       </div>
     </div>
   </section>
-  </div><!-- /page: about -->
 
   <!-- ══════════════════════════════════
-       PAGE: ARTIST
+       ARTIST
   ══════════════════════════════════ -->
-  <div class="page" data-page="artist">
   <section id="artist-section">
     <div class="container">
       <div class="artist-inner" id="artist">
@@ -1467,13 +1454,7 @@
       </div>
     </div>
   </section>
-  </div><!-- /page: artist -->
 
-  <!-- ══════════════════════════════════
-       PAGE: CONTACT
-  ══════════════════════════════════ -->
-  <div class="page" data-page="contact">
-  <!-- ── Process steps ── -->
   <!-- ══════════════════════════════════
        PROCESS
   ══════════════════════════════════ -->
@@ -1560,6 +1541,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ══════════════════════════════════
        FOOTER
@@ -1584,8 +1566,6 @@
       <p class="footer-copy" data-he="© 2025 Barik Arts. כל הזכויות שמורות." data-en="© 2025 Barik Arts. All rights reserved.">© 2025 Barik Arts. כל הזכויות שמורות.</p>
     </div>
   </footer>
-  </div><!-- /page: contact -->
-
   <!-- ACCESSIBILITY WIDGET -->
   <button id="a11y-btn" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel" onclick="toggleA11yPanel()">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1710,28 +1690,6 @@
        SCRIPTS
   ══════════════════════════════════ -->
   <script>
-    // ── Page routing (hash-based) ────────────────
-    const PAGES = ['home', 'catalog', 'about', 'artist', 'contact'];
-
-    function showPage(pageId) {
-      if (!PAGES.includes(pageId)) pageId = 'home';
-      document.querySelectorAll('.page').forEach(p => {
-        p.classList.toggle('page-active', p.dataset.page === pageId);
-      });
-      window.scrollTo(0, 0);
-      // re-attach lightbox clicks if switching to catalog
-      if (pageId === 'catalog') catRender();
-    }
-
-    function routeFromHash() {
-      const hash = location.hash.replace('#', '') || 'home';
-      showPage(hash);
-    }
-
-    window.addEventListener('hashchange', routeFromHash);
-    // Run on load
-    document.addEventListener('DOMContentLoaded', routeFromHash);
-
     // ── Sticky nav ──────────────────────────────
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
@@ -1826,7 +1784,7 @@
       }, { passive: true });
     })();
 
-    // Init catalog dots on DOMContentLoaded (already called after showPage too)
+    // Init catalog on DOMContentLoaded
     document.addEventListener('DOMContentLoaded', () => { catRender(); });
 
     // ── Lightbox + Carousel ──────────────────────
