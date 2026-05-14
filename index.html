@@ -415,15 +415,41 @@
     .cat-img-wrap {
       position: relative;
       overflow: hidden;
-      background: var(--dark3);
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .cat-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
       transition: opacity 0.45s ease;
     }
+    /* within-product image dots */
+    .cat-img-dots {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.3rem;
+      z-index: 3;
+    }
+    .cat-img-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cat-img-dot.active { background: var(--gold); transform: scale(1.3); }
     .cat-arrow {
       position: absolute;
       top: 50%;
@@ -518,10 +544,27 @@
     .cat-nav-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.7rem;
       padding: 1rem 0.2rem 0.3rem;
     }
-    .cat-dots { display: flex; gap: 0.35rem; }
+    .cat-prod-arrow {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 1.1rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .cat-prod-arrow:hover { border-color: var(--gold); color: var(--gold); }
+    .cat-dots { display: flex; gap: 0.35rem; flex: 1; }
     .cat-dot {
       width: 20px;
       height: 2px;
@@ -1397,8 +1440,9 @@
         <div class="cat-split">
           <div class="cat-img-wrap">
             <img id="catImg" src="images/natural_elevation.jpg" alt="מנורת גזע" />
-            <button class="cat-arrow cat-prev" onclick="catNav(-1)" aria-label="הפריט הקודם">&#8249;</button>
-            <button class="cat-arrow cat-next" onclick="catNav(1)" aria-label="הפריט הבא">&#8250;</button>
+            <button class="cat-arrow cat-prev" onclick="catImgNav(-1)" aria-label="תמונה קודמת">&#8249;</button>
+            <button class="cat-arrow cat-next" onclick="catImgNav(1)" aria-label="תמונה הבאה">&#8250;</button>
+            <div class="cat-img-dots" id="catImgDots"></div>
           </div>
           <div class="cat-info-panel">
             <div class="cat-price-tag" id="catPrice">€820</div>
@@ -1410,7 +1454,9 @@
           </div>
         </div>
         <div class="cat-nav-bar">
+          <button class="cat-prod-arrow" onclick="catNav(-1)" aria-label="מוצר קודם">&#8249;</button>
           <div class="cat-dots" id="catDots"></div>
+          <button class="cat-prod-arrow" onclick="catNav(1)" aria-label="מוצר הבא">&#8250;</button>
           <span class="cat-counter" id="catCounter" dir="ltr">1 / 8</span>
         </div>
       </div>
@@ -1726,41 +1772,43 @@
 
     // ── Catalog Slideshow ───────────────────────
     const CAT_PRODUCTS = [
-      { img: 'images/natural_elevation.jpg', price: '€820',
-        nameHe: 'מנורת גזע',    nameEn: 'Natural Elevation',
+      { price: '€820',   nameHe: 'מנורת גזע',     nameEn: 'Natural Elevation',
         descHe: 'עמוד תאורה מגזע עץ טבעי — הכי גבוה שיש, הכי מרשים שיש',
-        descEn: 'Floor lamp from a natural wood trunk — raw, dramatic, one of a kind' },
-      { img: 'images/coil_lamp.jpg', price: '€580',
-        nameHe: 'מנורת קפיץ',   nameEn: 'Coil Light',
+        descEn: 'Floor lamp from a natural wood trunk — raw, dramatic, one of a kind',
+        gallery: ['images/natural_elevation.jpg','images/wooden_glow_2.jpg'] },
+      { price: '€580',   nameHe: 'מנורת קפיץ',    nameEn: 'Coil Light',
         descHe: 'מנורת שולחן — גזע עץ טבעי עם ספירלת ברזל ונורת אדיסון',
-        descEn: 'Table lamp — natural wood stump, iron coil spring, Edison filament bulb' },
-      { img: 'images/wooden_glow_3.jpg', price: '€490',
-        nameHe: 'מנורת בול',    nameEn: 'Log Lamp',
-        descHe: 'גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי בצורתו ובמרקמו',
-        descEn: 'Hand-carved wood log — hollow interior with bulb. Each log unique in shape and texture' },
-      { img: 'images/industrial_light.jpg', price: '€220',
-        nameHe: 'מנורת צינורות', nameEn: 'Industrial Light',
+        descEn: 'Table lamp — natural wood stump, iron coil spring, Edison filament bulb',
+        gallery: ['images/coil_lamp.jpg','images/coil_lamp_2.jpg','images/coil_lamp_3.jpg'] },
+      { price: '€490',   nameHe: 'מנורת בול',     nameEn: 'Log Lamp',
+        descHe: 'גזע עץ מגולף ביד — חלל פנימי עם נורה. כל בול ייחודי',
+        descEn: 'Hand-carved wood log — hollow interior with bulb. Each log unique',
+        gallery: ['images/wooden_glow_3.jpg','images/driftwood_lamp_2.jpg'] },
+      { price: '€220',   nameHe: 'מנורת צינורות', nameEn: 'Industrial Light',
         descHe: 'ברזל תעשייתי, עץ גולמי — ניגוד מושלם שנהפך לאובייקט עיצובי',
-        descEn: 'Industrial iron meets raw wood — a perfect contrast turned design object' },
-      { img: 'images/wooden_glow.jpg', price: '€390',
-        nameHe: 'מנורת עץ',     nameEn: 'Wooden Glow',
+        descEn: 'Industrial iron meets raw wood — a perfect contrast turned design object',
+        gallery: ['images/industrial_light.jpg','images/industrial_light_2.jpg'] },
+      { price: '€390',   nameHe: 'מנורת עץ',      nameEn: 'Wooden Glow',
         descHe: 'תאורה שמחממת את הנשמה — עץ שמדליק אור רך מבפנים',
-        descEn: 'Light that warms the soul — wood that glows softly from within' },
-      { img: 'images/raw_essence.jpg', price: '€1,550',
-        nameHe: 'פסל בטון וברזל', nameEn: 'Raw Essence',
+        descEn: 'Light that warms the soul — wood that glows softly from within',
+        gallery: ['images/wooden_glow.jpg','images/driftwood_lamp.jpg','images/console_table_2.jpg'] },
+      { price: '€1,550', nameHe: 'פסל בטון וברזל', nameEn: 'Raw Essence',
         descHe: 'פסל גדול — ברזל, בטון ועץ. יצירה שמגדירה חלל',
-        descEn: 'A large sculpture — iron, concrete and wood. A piece that defines a space' },
-      { img: 'images/live_table.jpg', price: '€1,450',
-        nameHe: 'שולחן גזע',    nameEn: 'Live Edge Table',
+        descEn: 'A large sculpture — iron, concrete and wood. A piece that defines a space',
+        gallery: ['images/raw_essence.jpg','images/raw_essence_2.jpg'] },
+      { price: '€1,450', nameHe: 'שולחן גזע',     nameEn: 'Live Edge Table',
         descHe: 'שולחן מגזע עץ טבעי עם קצוות חיים — רגלי ברזל. כל שולחן ייחודי',
-        descEn: 'Table from a natural live-edge slab with iron legs — every piece one of a kind' },
-      { img: 'images/console_table.jpg', price: '€1,190',
-        nameHe: 'מזנון',         nameEn: 'Mizmun Console',
-        descHe: 'מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. מתאים לכניסה, לסלון או לחדר שינה',
-        descEn: 'Reclaimed wood console with rebar legs and a lower iron shelf — fits an entryway, living room or bedroom' },
+        descEn: 'Table from a natural live-edge slab with iron legs — every piece unique',
+        gallery: ['images/live_table.jpg','images/live_table_2.jpg'] },
+      { price: '€1,190', nameHe: 'מזנון',          nameEn: 'Mizmun Console',
+        descHe: 'מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. לכניסה, לסלון, לחדר שינה',
+        descEn: 'Reclaimed wood console with rebar legs — for an entryway, living room or bedroom',
+        gallery: ['images/console_table.jpg','images/console_table_4.jpg'] },
     ];
 
     let catIdx = 0;
+    let catImgIdx = 0;
+    let currentLang = 'he';
 
     function catRender() {
       const p = CAT_PRODUCTS[catIdx];
@@ -1768,9 +1816,11 @@
       const img = document.getElementById('catImg');
       if (img) {
         img.style.opacity = '0';
-        img.src = p.img;
+        img.src = p.gallery[catImgIdx];
         img.alt = p.nameHe;
         img.onload = () => { img.style.opacity = '1'; };
+        // if cached, show immediately
+        if (img.complete) img.style.opacity = '1';
       }
       const el = id => document.getElementById(id);
       if (el('catPrice'))   el('catPrice').textContent   = p.price;
@@ -1778,10 +1828,10 @@
       if (el('catNameSub')) el('catNameSub').textContent = p.nameEn;
       if (el('catDesc'))    el('catDesc').textContent    = lang === 'he' ? p.descHe : p.descEn;
       if (el('catCounter')) el('catCounter').textContent = (catIdx + 1) + ' / ' + CAT_PRODUCTS.length;
-      // btn direction
       const btn = el('catBtn');
       if (btn) btn.textContent = lang === 'he' ? 'ספרי לי עוד ←' : 'Tell Me More →';
-      // dots
+
+      // product dots (bottom bar)
       const dotsEl = el('catDots');
       if (dotsEl) {
         dotsEl.innerHTML = '';
@@ -1789,14 +1839,42 @@
           const d = document.createElement('button');
           d.className = 'cat-dot' + (i === catIdx ? ' active' : '');
           d.setAttribute('aria-label', 'פריט ' + (i + 1));
-          d.onclick = () => { catIdx = i; catRender(); };
+          d.onclick = () => { catIdx = i; catImgIdx = 0; catRender(); };
           dotsEl.appendChild(d);
         });
       }
+
+      // within-product image dots
+      const imgDotsEl = el('catImgDots');
+      if (imgDotsEl) {
+        imgDotsEl.innerHTML = '';
+        if (p.gallery.length > 1) {
+          p.gallery.forEach((_, i) => {
+            const d = document.createElement('button');
+            d.className = 'cat-img-dot' + (i === catImgIdx ? ' active' : '');
+            d.setAttribute('aria-label', 'תמונה ' + (i + 1));
+            d.onclick = e => { e.stopPropagation(); catImgIdx = i; catRender(); };
+            imgDotsEl.appendChild(d);
+          });
+        }
+      }
+
+      // show/hide image arrows based on gallery size
+      const prev = document.querySelector('.cat-arrow.cat-prev');
+      const next = document.querySelector('.cat-arrow.cat-next');
+      if (prev) prev.style.display = p.gallery.length > 1 ? '' : 'none';
+      if (next) next.style.display = p.gallery.length > 1 ? '' : 'none';
     }
 
     function catNav(dir) {
       catIdx = (catIdx + dir + CAT_PRODUCTS.length) % CAT_PRODUCTS.length;
+      catImgIdx = 0;
+      catRender();
+    }
+
+    function catImgNav(dir) {
+      const p = CAT_PRODUCTS[catIdx];
+      catImgIdx = (catImgIdx + dir + p.gallery.length) % p.gallery.length;
       catRender();
     }
 
@@ -1935,7 +2013,6 @@
     catRender();
 
     // ── Language toggle ─────────────────────────
-    let currentLang = 'he';
     function toggleLang() {
       currentLang = currentLang === 'he' ? 'en' : 'he';
       const html = document.documentElement;
