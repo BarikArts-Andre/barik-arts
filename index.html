@@ -607,6 +607,7 @@
       letter-spacing: 0.15em;
       color: var(--dim);
       direction: ltr;
+      white-space: nowrap;
     }
 
     /* Mobile — stacked */
@@ -1062,12 +1063,16 @@
     @media (max-width: 480px) {
       section { padding: 2rem 1rem; }
       .section-header { margin-bottom: 1.2rem; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
+      /* Single-column process steps on small phones */
+      .process-steps { grid-template-columns: 1fr; gap: 1.2rem; }
+      .step { padding: 0; text-align: center; }
       .about-stats { gap: 1.2rem; margin-top: 1.2rem; }
       .stat-num { font-size: 1.6rem; }
       /* tighten artist section */
       .artist-inner { gap: 1.5rem; }
       .artist-text { gap: 0.8rem; }
+      /* tighter product section on small phones */
+      #products { padding-bottom: 1.5rem; }
     }
 
     /* ═══════════════════════════════════════════
@@ -1457,6 +1462,20 @@
 
     /* smooth scroll for anchor navigation */
     html { scroll-behavior: smooth; }
+
+    /* ── Fade-in animation ── */
+    .fade-hidden {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-hidden.fade-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-hidden { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 
@@ -1501,7 +1520,7 @@
     <div class="hero-content">
       <p class="hero-eyebrow" data-he="עבודת יד · חומרים איכותיים · הזמנה אישית" data-en="Handcrafted · Premium Materials · Custom Orders">עבודת יד · חומרים איכותיים · הזמנה אישית</p>
       <h1 class="hero-title" data-he="יצירות אומנות — בהתאמה אישית" data-en="Handcrafted Art,<br>Made for You">יצירות אומנות — בהתאמה אישית</h1>
-      <p class="hero-sub" data-he="יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון" data-en="Bespoke pieces in wood, iron &amp; concrete">יצירות אומנות בהתאמה אישית — עץ, ברזל, בטון</p>
+      <p class="hero-sub" data-he="עץ · ברזל · בטון" data-en="Bespoke pieces in wood, iron &amp; concrete">עץ · ברזל · בטון</p>
       <a href="#contact" class="hero-btn" data-he="השאירו פרטים" data-en="Get in Touch">השאירו פרטים</a>
     </div>
     <div class="hero-scroll">scroll</div>
@@ -1543,7 +1562,7 @@
           <button class="cat-prod-arrow" onclick="catNav(-1)" aria-label="מוצר קודם">&#8250;</button>
           <div class="cat-dots" id="catDots"></div>
           <button class="cat-prod-arrow" onclick="catNav(1)" aria-label="מוצר הבא">&#8249;</button>
-          <span class="cat-counter" id="catCounter" dir="ltr">1 / 8</span>
+          <span class="cat-counter" id="catCounter" dir="ltr">1 / 9</span>
         </div>
       </div>
     </div>
@@ -1626,14 +1645,14 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag" data-he="איך זה עובד" data-en="How It Works">איך זה עובד</span>
-        <h2 data-he="כך זה עובד — ארבעה שלבים" data-en="How It Works — Four Steps">כך זה עובד — ארבעה שלבים</h2>
+        <h2 data-he="כך זה עובד — ארבעה שלבים" data-en="Four Simple Steps">כך זה עובד — ארבעה שלבים</h2>
         <div class="gold-line"></div>
       </div>
       <div class="process-steps">
         <div class="step">
           <div class="step-num">1</div>
           <h3 data-he="משאירים פרטים" data-en="Share Your Details">משאירים פרטים</h3>
-          <p data-he="ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות" data-en="Drop your name and number — we'll be back within 24 hours">ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות</p>
+          <p data-he="ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות" data-en="Leave your name and number — we'll follow up within 24 hours">ממלאים שם וטלפון — אנחנו חוזרים אליך תוך 24 שעות</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -1688,7 +1707,7 @@
               data-placeholder-he="מנורה, שולחן, פסל, גודל, חלום..." data-placeholder-en="Lamp, table, sculpture, size, dream..."
               placeholder="מנורה, שולחן, פסל, גודל, חלום..."></textarea>
           </div>
-          <button type="submit" class="form-submit" data-he="שלחו פרטים ←" data-en="Send →">שלחו פרטים ←</button>
+          <button type="submit" class="form-submit" data-he="שלחו פרטים ←" data-en="Send Details →">שלחו פרטים ←</button>
         </form>
 
         <div class="form-success" id="formSuccess">
@@ -2226,19 +2245,19 @@
     });
 
     // ── Fade-in on scroll ────────────────────────
+    // Only animate steps — section headers and paragraphs are not animated
+    // to avoid invisible-content issues on mobile
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
+          e.target.classList.add('fade-visible');
+          observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
-    document.querySelectorAll('.step, .about-text p, .section-header').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    document.querySelectorAll('.step').forEach(el => {
+      el.classList.add('fade-hidden');
       observer.observe(el);
     });
   </script>
