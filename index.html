@@ -652,6 +652,84 @@
       background: var(--border);
       margin: 4rem auto 0;
     }
+    /* ── BARIK MARK SECTION ── */
+    #barik-mark { background: var(--bg); }
+    .barik-mark-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .barik-mark-img-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .barik-mark-img-main {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 16px;
+      display: block;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.5);
+    }
+    .barik-action-photo {
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+      display: block;
+    }
+    .barik-mark-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin: 0.6rem 0 1.2rem;
+      color: var(--gold);
+    }
+    .barik-mark-text {
+      color: var(--text-muted);
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .barik-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.8rem;
+    }
+    .barik-pillar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      text-align: center;
+    }
+    .barik-pillar svg {
+      width: 36px; height: 36px;
+      color: var(--gold);
+    }
+    .barik-pillar span {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    @media (max-width: 720px) {
+      .barik-mark-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+      .barik-mark-img-main { max-width: 280px; }
+      .barik-action-photo { max-width: 100%; }
+      .barik-mark-content { display: flex; flex-direction: column; align-items: center; }
+      .barik-pillars { gap: 1rem; }
+    }
+
     #about > .container:last-of-type {
       padding-top: 4rem;
       padding-bottom: 5rem;
@@ -1629,10 +1707,43 @@
           <p data-he="הוא אוהב את מה שהוא עושה, ואוהב אתגרים. כל בקשה חדשה — בין אם מנורה פשוטה ובין אם פסל ייחודי — מקבלת אצלו את אותה מחויבות מלאה." data-en="He loves what he does, and he thrives on a challenge. Every commission — whether a simple lamp or a statement sculpture — receives exactly the same complete dedication.">
             הוא אוהב את מה שהוא עושה, ואוהב אתגרים. כל בקשה חדשה — בין אם מנורה פשוטה ובין אם פסל ייחודי — מקבלת אצלו את אותה מחויבות מלאה.
           </p>
-          <p data-he="כל פריט מיוצר לפי הזמנה אישית, עם בחירה מלאה של חומרים, מידות וגימור. הרמה והאיכות — ללא פשרות." data-en="Every piece is made to order — with full choice of materials, dimensions and finish. The quality of the craft is never negotiated.">
+          <p data-he="כל פריט מיוצר לפי הזמנה אישית, עם בחירה מלאה של חומרים, מידות וגימור. הרמה והאיכות — ללא פשרות." data-en="Every piece is made to order — with full choice of materials, dimensions and finish. The quality of the craft is never compromised.">
             כל פריט מיוצר לפי הזמנה אישית, עם בחירה מלאה של חומרים, מידות וגימור. הרמה והאיכות — ללא פשרות.
           </p>
           <div class="artist-name-tag">BARIK ARTS — HANDCRAFTED SINCE DAY ONE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       BARIK MARK
+  ══════════════════════════════════ -->
+  <section id="barik-mark">
+    <div class="container">
+      <div class="barik-mark-inner">
+        <div class="barik-mark-img-wrap">
+          <img src="images/barik_stamp_nobg.png" alt="חותמת BARIK" class="barik-mark-img-main">
+        </div>
+        <div class="barik-mark-content">
+          <span class="section-tag" data-he="חותמת האמן" data-en="The Artist's Mark">חותמת האמן</span>
+          <h2 class="barik-mark-title" data-he="כל יצירה יוצאת חתומה" data-en="Every Piece Leaves the Studio Signed">כל יצירה יוצאת חתומה</h2>
+          <p class="barik-mark-text" data-he="אנדרי עיצב חותמת אישית משלו — ונצרבת ביד לתוך העץ על כל יצירה שיוצאת מהסדנה שלו." data-en="Andrei designed his own personal stamp — burned by hand into the wood on every piece that leaves his workshop.">אנדרי עיצב חותמת אישית משלו — ונצרבת ביד לתוך העץ על כל יצירה שיוצאת מהסדנה שלו.</p>
+          <img src="images/barik_stamp_action.jpg" alt="אנדרי מצרב" class="barik-action-photo">
+          <div class="barik-pillars">
+            <div class="barik-pillar">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 4 C12 4 8 10 8 17 C8 24 12 28 16 30 L16 35 L24 35 L24 30 C28 28 32 24 32 17 C32 10 28 4 20 4Z"/><line x1="16" y1="33" x2="24" y2="33"/></svg>
+              <span data-he="עבודת יד" data-en="Handcrafted">עבודת יד</span>
+            </div>
+            <div class="barik-pillar">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="10"/><circle cx="20" cy="20" r="6"/><circle cx="20" cy="20" r="2"/></svg>
+              <span data-he="עץ טבעי" data-en="Natural Wood">עץ טבעי</span>
+            </div>
+            <div class="barik-pillar">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="13" y="22" width="14" height="12" rx="1"/><rect x="10" y="18" width="20" height="5" rx="1"/><rect x="17" y="8" width="6" height="10" rx="1"/><circle cx="20" cy="6" r="2"/></svg>
+              <span data-he="חתומה לנצח" data-en="Stamped Forever">חתומה לנצח</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1910,7 +2021,7 @@
         gallery: ['images/live_table.jpg','images/live_table_2.jpg'] },
       { price: '€320',   nameHe: 'מנורת סחף',      nameEn: 'Driftwood Edison',
         descHe: 'ענף סחף שמצא את עצמו — מנורת שולחן מעץ טבעי עם נורת אדיסון וכבל חבל שזור. כל אחת שונה, כל אחת ייחודית',
-        descEn: 'A driftwood branch that found its calling — table lamp with Edison bulb and twisted rope cord. Every piece is one of a kind',
+        descEn: 'A driftwood branch that found its calling — table lamp with Edison bulb and twisted rope cord. Every piece is one of a kind.',
         gallery: ['images/driftwood_edison.jpg','images/driftwood_edison_2.jpg','images/driftwood_edison_3.jpg'] },
       { price: '€1,190', nameHe: 'מזנון',          nameEn: 'Mizmun Console',
         descHe: 'מזנון מעץ ישן ורגלי מוט ברזל — עם מדף תחתון. לכניסה, לסלון, לחדר שינה',
